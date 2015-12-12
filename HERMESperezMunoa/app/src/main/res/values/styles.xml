@@ -1,9 +1,0 @@
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="inicio" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">#57719f</item>
-        <item name="colorPrimaryDark">#486291</item>
-        <item name="colorAccent">#aeae37</item>
-    </style>
-</resources>
