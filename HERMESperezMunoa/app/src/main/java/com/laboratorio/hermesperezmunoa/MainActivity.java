@@ -1,12 +1,12 @@
 package com.laboratorio.hermesperezmunoa;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
         ListView listA = (ListView) this.findViewById(R.id.listaAlumnos);
         ListAdapter adapter = new ArrayAdapter<Child>(this, android.R.layout.simple_list_item_1, childList);
         listA.setAdapter(adapter);
+
+        listA.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                intent.putExtra("chico", adapterView.getAdapter().getItem(position).toString());
+                startActivity(intent);
+            }
+        });
 
     }
 
