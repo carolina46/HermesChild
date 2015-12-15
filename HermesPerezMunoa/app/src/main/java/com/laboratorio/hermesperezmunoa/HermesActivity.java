@@ -31,7 +31,8 @@ public class HermesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(HermesActivity.this, ModoNinoActivity.class);
-                intent.putExtra("chico", adapterView.getAdapter().getItem(position).toString());
+                Child c= (Child) adapterView.getAdapter().getItem(position);
+                intent.putExtra("chico", c.getNombre());
                 startActivity(intent);
             }
         });

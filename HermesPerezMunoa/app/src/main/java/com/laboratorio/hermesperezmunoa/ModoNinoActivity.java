@@ -22,6 +22,7 @@ public class ModoNinoActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private String nombre;
 
 
 
@@ -29,6 +30,9 @@ public class ModoNinoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
+
+        Bundle bundle = getIntent().getExtras();
+        nombre=  bundle.getString("chico");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,11 +86,7 @@ public class ModoNinoActivity extends AppCompatActivity {
         private int anchoColumna;
         private AdaptadorDePictogramas adaptador;
         private Integer[] imagenes;
-
-
         private static final String ARG_SECTION_NUMBER = "section_number";
-
-
 
         public PlaceholderFragment() {  }
 
@@ -97,9 +97,7 @@ public class ModoNinoActivity extends AppCompatActivity {
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             System.out.print(sectionNumber);
-
             return fragment;
-
         }
 
 
@@ -112,9 +110,6 @@ public class ModoNinoActivity extends AppCompatActivity {
             //CONTENIDO DEL FRAGMENTO
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
-
-
-
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
@@ -152,7 +147,8 @@ public class ModoNinoActivity extends AppCompatActivity {
                 case 2:
                     imagenes = new Integer[]{
                             R.drawable.bano,
-                            R.drawable.sed};
+                            R.drawable.sed,
+                            R.drawable.seed};
                     break;
                 case 3:
                     imagenes = new Integer[]{
@@ -176,26 +172,29 @@ public class ModoNinoActivity extends AppCompatActivity {
             }
 
 
+            //TAMANO PANTALLA
             DisplayMetrics dm = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int width=dm.widthPixels;
+
+
+            //ESPACIO DISPONIBLE PARA GRID
             gridView.setColumnWidth((width*75)/100);
 
-
+            //TAMANO COLUMNAS DEL GRID
             width=((  ((width*75)/100)  -48)/3);
-
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
 
+
+            //TAMAÑO ADAPTATIVO DEL SI Y NO
             ImageView im = (ImageView) rootView.findViewById(R.id.no);
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
-            im.setPadding(0,50,50,0);
 
             im= (ImageView) rootView.findViewById(R.id.si);
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
-            im.setPadding(0,50,50,0);
 
             return rootView;
         }
@@ -239,7 +238,7 @@ public class ModoNinoActivity extends AppCompatActivity {
                 case 3:
                     return "Emociones";
                 case 4:
-                    return "Natalia";
+                    return nombre;
             }
             return null;
         }

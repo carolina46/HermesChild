@@ -2,7 +2,7 @@
     <string name="app_name">HermesPerezMunoa</string>
     <string name="title_activity_modo_nino">ModoNinoActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nombre_nino"></string>
     <string name="si">SI</string>
     <string name="no">NO</string>
 </resources>

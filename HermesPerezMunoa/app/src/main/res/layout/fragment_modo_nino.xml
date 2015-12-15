@@ -17,33 +17,37 @@
         android:gravity="center"
         android:layout_weight="3"
         android:id="@+id/pictogrmas"
-        />
+        android:layout_marginBottom="50dp" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:clickable="true">
 
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:paddingTop="100dp"
-            android:layout_gravity="center"
             android:id="@+id/si"
             android:background="@drawable/comunicador_0032"
-            android:contentDescription="@string/si" />
-
-        <ImageView
+            android:contentDescription="@string/si"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:paddingTop="10dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"/>
+
+        <ImageView
             android:id="@+id/no"
             android:background="@drawable/comunicador_0024"
-            android:contentDescription="@string/no" />
+            android:contentDescription="@string/no"
+            android:scaleType="fitEnd"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
     </LinearLayout>
 
 </LinearLayout>
