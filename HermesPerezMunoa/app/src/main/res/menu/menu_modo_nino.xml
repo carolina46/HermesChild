@@ -2,6 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.laboratorio.hermesperezmunoa.ModoNinoActivity">
+
+    <item
+        android:id="@+id/nombre_nino"
+        android:orderInCategory="150"
+        android:title="Natalia Garcia"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/modo_edicion"
         android:orderInCategory="100"

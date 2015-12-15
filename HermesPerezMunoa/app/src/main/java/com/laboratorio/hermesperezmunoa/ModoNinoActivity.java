@@ -8,29 +8,22 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.GridView;
+import android.widget.ImageView;
 
 public class ModoNinoActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +32,8 @@ public class ModoNinoActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
+        // Create the adapter that will return a fragment for each sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -76,23 +69,27 @@ public class ModoNinoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     /**
      * A placeholder fragment containing a simple view.
      */
+
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
+        private GridView gridView;
+        private int anchoColumna;
+        private AdaptadorDePictogramas adaptador;
+        private Integer[] imagenes;
+
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+        public PlaceholderFragment() {  }
+
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -101,14 +98,53 @@ public class ModoNinoActivity extends AppCompatActivity {
             return fragment;
         }
 
+
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            //CONTENIDO DEL FRAGMENTO
+
+            gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
+
+            imagenes = new Integer[]{
+                        R.drawable.pelota,
+                        R.drawable.matra,
+                        R.drawable.maracas,
+                        R.drawable.montura,
+                        R.drawable.palos,
+                        R.drawable.pasto,
+                        R.drawable.pato,
+                        R.drawable.limpieza,
+                        R.drawable.letras};
+
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width=dm.widthPixels;
+            gridView.setColumnWidth((width*75)/100);
+
+            width=((  ((width*75)/100)  -72)/3);
+
+            adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
+            gridView.setAdapter(adaptador);
+
+            ImageView im = (ImageView) rootView.findViewById(R.id.no);
+            im.getLayoutParams().height=width;
+            im.getLayoutParams().width=width;
+            im.setPadding(0,50,50,0);
+
+            im= (ImageView) rootView.findViewById(R.id.si);
+            im.getLayoutParams().height=width;
+            im.getLayoutParams().width=width;
+            im.setPadding(0,50,50,0);
+
             return rootView;
         }
+
+
     }
 
     /**
@@ -125,7 +161,8 @@ public class ModoNinoActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return new PlaceholderFragment();
+                    //PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
