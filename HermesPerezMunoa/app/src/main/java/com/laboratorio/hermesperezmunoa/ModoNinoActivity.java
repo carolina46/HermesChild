@@ -87,6 +87,7 @@ public class ModoNinoActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
 
+
         public PlaceholderFragment() {  }
 
 
@@ -95,7 +96,10 @@ public class ModoNinoActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            System.out.print(sectionNumber);
+
             return fragment;
+
         }
 
 
@@ -109,16 +113,67 @@ public class ModoNinoActivity extends AppCompatActivity {
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
 
-            imagenes = new Integer[]{
-                        R.drawable.pelota,
-                        R.drawable.matra,
-                        R.drawable.maracas,
-                        R.drawable.montura,
-                        R.drawable.palos,
-                        R.drawable.pasto,
-                        R.drawable.pato,
-                        R.drawable.limpieza,
-                        R.drawable.letras};
+
+
+
+            switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 0:
+                    imagenes = new Integer[]{
+                            R.drawable.casco,
+                            R.drawable.chapas,
+                            R.drawable.letras,
+                            R.drawable.cubos,
+                            R.drawable.maracas,
+                            R.drawable.palos,
+                            R.drawable.pato,
+                            R.drawable.pelota,
+                            R.drawable.riendas,
+                            R.drawable.burbujas,
+                            R.drawable.broches,
+                            R.drawable.aro,
+                            R.drawable.tarima
+                            };
+                    break;
+                case 1:
+                    imagenes = new Integer[]{
+                            R.drawable.cepillo,
+                            R.drawable.limpieza,
+                            R.drawable.escarba,
+                            R.drawable.montura,
+                            R.drawable.matra,
+                            R.drawable.raqueta_dura,
+                            R.drawable.raqueta_blanda,
+                            R.drawable.pasto,
+                            R.drawable.zanahoria,
+                            R.drawable.caballo_b,
+                            R.drawable.caballo_m,
+                            R.drawable.caballo_n};
+                    break;
+                case 2:
+                    imagenes = new Integer[]{
+                            R.drawable.bano,
+                            R.drawable.sed};
+                    break;
+                case 3:
+                    imagenes = new Integer[]{
+                            R.drawable.dolorida,
+                            R.drawable.dolorido,
+                            R.drawable.cansada,
+                            R.drawable.cansado,
+                            R.drawable.triste,
+                            R.drawable.tristee,
+                            R.drawable.sorprendida,
+                            R.drawable.sorprendido,
+                            R.drawable.asustado,
+                            R.drawable.asustada,
+                            R.drawable.contenta,
+                            R.drawable.contento,
+                            R.drawable.enojada,
+                            R.drawable.enojado};
+                    break;
+                case 4:
+                    imagenes = new Integer[0];
+            }
 
 
             DisplayMetrics dm = new DisplayMetrics();
@@ -126,7 +181,8 @@ public class ModoNinoActivity extends AppCompatActivity {
             int width=dm.widthPixels;
             gridView.setColumnWidth((width*75)/100);
 
-            width=((  ((width*75)/100)  -72)/3);
+
+            width=((  ((width*75)/100)  -48)/3);
 
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
@@ -161,7 +217,7 @@ public class ModoNinoActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new PlaceholderFragment();
+            return PlaceholderFragment.newInstance(position);
                     //PlaceholderFragment.newInstance(position + 1);
         }
 

@@ -7,16 +7,14 @@
     tools:context="com.laboratorio.hermesperezmunoa.ModoNinoActivity$PlaceholderFragment">
 
     <GridView
-
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:stretchMode="columnWidth"
         android:numColumns="3"
         android:padding="10dp"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
         android:gravity="center"
-
         android:layout_weight="3"
         android:id="@+id/pictogrmas"
         />
@@ -26,15 +24,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:weightSum="2"
-        android:paddingTop="50dp">
+        android:paddingTop="10dp">
 
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:paddingTop="100dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
             android:id="@+id/si"
             android:background="@drawable/comunicador_0032"
@@ -43,9 +39,8 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
-            android:padding="20dp"
+            android:paddingTop="10dp"
             android:id="@+id/no"
             android:background="@drawable/comunicador_0024"
             android:contentDescription="@string/no" />
