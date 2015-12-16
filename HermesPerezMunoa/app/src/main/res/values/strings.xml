@@ -5,4 +5,6 @@
     <string name="nombre_nino"></string>
     <string name="si">SI</string>
     <string name="no">NO</string>
+    <string name="title_activity_edicion">edicionActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

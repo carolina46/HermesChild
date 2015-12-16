@@ -6,7 +6,7 @@
     <item
         android:id="@+id/nombre_nino"
         android:orderInCategory="150"
-        android:title="@string/nombre_nino"
+        android:title=""
         app:showAsAction="always" />
 
     <item

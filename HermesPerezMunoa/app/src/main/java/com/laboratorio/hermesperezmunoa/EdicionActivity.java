@@ -1,7 +1,5 @@
 package com.laboratorio.hermesperezmunoa;
 
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,30 +15,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 
-public class ModoNinoActivity extends AppCompatActivity {
+public class EdicionActivity extends AppCompatActivity {
 
-
+    private String nombre;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String nombre;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modo_nino);
+        setContentView(R.layout.activity_edicion);
 
+        //RECUPERO PARAMETROS
         Bundle bundle = getIntent().getExtras();
         nombre=  bundle.getString("chico");
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // Create the adapter that will return a fragment for each sections of the activity.
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -50,42 +44,15 @@ public class ModoNinoActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_modo_nino, menu);
-
-
-       // MenuItem item = (MenuItem) findViewById(R.id.nombre_nino);
-       // item.setTitle(nombre);
-
-
+        getMenuInflater().inflate(R.menu.menu_edicion, menu);
         return true;
     }
-
-
-
-    //SONIDO BOTONES DE SI Y NO
-    public void presionoSi (View v) {
-        MediaPlayer mp = MediaPlayer.create(this,R.raw.si );
-        mp.start();
-    }
-
-    public void presionoNo (View v) {
-        MediaPlayer mp = MediaPlayer.create(this,R.raw.no );
-        mp.start();
-    }
-
-
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -95,49 +62,44 @@ public class ModoNinoActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.modo_edicion) {
-            Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
-            intent.putExtra("chico", nombre);
-            startActivity(intent);
+        if (id == R.id.action_settings) {
+            return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    //FRAGMENTO
+    /**
+     * A placeholder fragment containing a simple view.
+     */
     public static class PlaceholderFragment extends Fragment {
 
-        private GridView gridView;
-        private int anchoColumna;
-        private AdaptadorDePictogramas adaptador;
-        private Integer[] imagenes;
         private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {  }
-
+        private GridView gridView;
+        private AdaptadorDePictogramas adaptador;
+        private int anchoColumna;
+        private Integer[] imagenes;
+        public PlaceholderFragment() {
+        }
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
-            System.out.print(sectionNumber);
             return fragment;
         }
 
 
-
-        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_edicion, container, false);
+
+
 
             //CONTENIDO DEL FRAGMENTO
 
-            gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
+            gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
@@ -155,7 +117,7 @@ public class ModoNinoActivity extends AppCompatActivity {
                             R.drawable.broches,
                             R.drawable.aro,
                             R.drawable.tarima
-                            };
+                    };
                     break;
                 case 1:
                     imagenes = new Integer[]{
@@ -207,28 +169,19 @@ public class ModoNinoActivity extends AppCompatActivity {
 
 
             //ESPACIO DISPONIBLE PARA GRID
-            gridView.setColumnWidth((width*75)/100);
+            gridView.setColumnWidth(width);
 
             //TAMANO COLUMNAS DEL GRID
-            width=((  ((width*75)/100)  -48)/3);
+            width=(( width-90)/4);
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
 
 
-            //TAMAÑO ADAPTATIVO DEL SI Y NO
-            ImageView im = (ImageView) rootView.findViewById(R.id.no);
-            im.getLayoutParams().height=width;
-            im.getLayoutParams().width=width;
-
-            im= (ImageView) rootView.findViewById(R.id.si);
-            im.getLayoutParams().height=width;
-            im.getLayoutParams().width=width;
 
             return rootView;
         }
 
     }
-
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -238,17 +191,11 @@ public class ModoNinoActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position);
-                    //PlaceholderFragment.newInstance(position + 1);
+          return PlaceholderFragment.newInstance(position);
         }
 
         @Override
-        public int getCount() {
-            // Show total pages.
-            return 5;
-        }
+        public int getCount() {return 5;}
 
         @Override
         public CharSequence getPageTitle(int position) {
