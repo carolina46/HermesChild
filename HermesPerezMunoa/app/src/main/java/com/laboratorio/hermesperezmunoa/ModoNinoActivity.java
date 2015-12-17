@@ -1,12 +1,13 @@
 package com.laboratorio.hermesperezmunoa;
 
-import android.content.Intent;
+import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,9 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class ModoNinoActivity extends AppCompatActivity {
 
 
@@ -26,6 +30,7 @@ public class ModoNinoActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private String nombre;
 
+     private AppBarLayout bar;
 
 
     @Override
@@ -38,8 +43,9 @@ public class ModoNinoActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        toolbar.setTitle("HERMES      " + nombre );
+        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -57,52 +63,27 @@ public class ModoNinoActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_modo_nino, menu);
-
-
-       // MenuItem item = (MenuItem) findViewById(R.id.nombre_nino);
-       // item.setTitle(nombre);
-
-
         return true;
     }
 
-
-
-    //SONIDO BOTONES DE SI Y NO
-    public void presionoSi (View v) {
-        MediaPlayer mp = MediaPlayer.create(this,R.raw.si );
-        mp.start();
-    }
-
-    public void presionoNo (View v) {
-        MediaPlayer mp = MediaPlayer.create(this,R.raw.no );
-        mp.start();
-    }
-
-
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == R.id.modo_edicion) {
-            Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
-            intent.putExtra("chico", nombre);
-            startActivity(intent);
+          //  Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
+           // intent.putExtra("chico", nombre);
+           // startActivity(intent);
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void loadBitmap(int resId, ImageView imageView) {
+        BitmapWorkerTask task = new BitmapWorkerTask(imageView, getResources());
+        task.execute(resId);
     }
 
 
@@ -114,9 +95,21 @@ public class ModoNinoActivity extends AppCompatActivity {
         private int anchoColumna;
         private AdaptadorDePictogramas adaptador;
         private Integer[] imagenes;
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {  }
+
+        //SONIDO BOTONES DE SI Y NO
+        public void presionoSi (View v) {
+            MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.si );
+            mp.start();
+        }
+
+        public void presionoNo (View v) {
+            MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.no );
+            mp.start();
+        }
 
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -138,6 +131,10 @@ public class ModoNinoActivity extends AppCompatActivity {
             //CONTENIDO DEL FRAGMENTO
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
+
+
+
+
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
@@ -227,10 +224,33 @@ public class ModoNinoActivity extends AppCompatActivity {
             return rootView;
         }
 
+
+
+        public InputStream getAsset(String ruta) {
+            AssetManager assetManager = getResources().getAssets();
+            InputStream inputStream = null;
+
+            try {
+                inputStream = assetManager.open(ruta);
+                if (inputStream != null)
+                    return inputStream;
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+
+
+
+
+
+
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);

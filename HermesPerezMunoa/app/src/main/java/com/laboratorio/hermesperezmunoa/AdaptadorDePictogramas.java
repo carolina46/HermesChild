@@ -40,14 +40,17 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(_activity);
+
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
+            ((ModoNinoActivity) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
+            //imageView.setImageDrawable(_activity.getResources().getDrawable(this.listaIdImagenes[position]));
+
         } else {
             imageView = (ImageView) convertView;
         }
 
 
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
-        imageView.setImageDrawable(_activity.getResources().getDrawable(this.listaIdImagenes[position]));
 
 
         return imageView;
