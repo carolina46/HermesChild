@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -15,9 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 
-public class EdicionActivity extends AppCompatActivity {
+public class EdicionActivity extends SuperSolapas {
 
     private String nombre;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -50,13 +48,7 @@ public class EdicionActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edicion, menu);
-
-        MenuItem i= (MenuItem) this.findViewById(R.id.nombre_nino);
-        i.setTitle(nombre);
-
-
         return true;
     }
 
@@ -75,10 +67,7 @@ public class EdicionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadBitmap(int resId, ImageView imageView) {
-        BitmapWorkerTask task = new BitmapWorkerTask(imageView, getResources());
-        task.execute(resId);
-    }
+
 
     /**
      * A placeholder fragment containing a simple view.

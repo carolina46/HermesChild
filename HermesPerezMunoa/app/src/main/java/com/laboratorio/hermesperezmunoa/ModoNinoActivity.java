@@ -1,5 +1,6 @@
 package com.laboratorio.hermesperezmunoa;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -23,14 +23,13 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ModoNinoActivity extends AppCompatActivity {
+public class ModoNinoActivity extends SuperSolapas {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private String nombre;
-
-     private AppBarLayout bar;
+    private AppBarLayout bar;
 
 
     @Override
@@ -38,6 +37,7 @@ public class ModoNinoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
 
+        //RECUPERO PARAMETROS
         Bundle bundle = getIntent().getExtras();
         nombre=  bundle.getString("chico");
 
@@ -46,6 +46,7 @@ public class ModoNinoActivity extends AppCompatActivity {
 
         toolbar.setTitle("HERMES      " + nombre );
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -55,9 +56,6 @@ public class ModoNinoActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-
     }
 
 
@@ -69,28 +67,23 @@ public class ModoNinoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.modo_edicion) {
-          //  Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
-           // intent.putExtra("chico", nombre);
-           // startActivity(intent);
+           Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
+           intent.putExtra("chico", nombre);
+           startActivity(intent);
         }
-
+        if(id == R.id.ajustes) {
+            Intent intent = new Intent(ModoNinoActivity.this, AjustesActivity.class);
+            intent.putExtra("chico", nombre);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadBitmap(int resId, ImageView imageView) {
-        BitmapWorkerTask task = new BitmapWorkerTask(imageView, getResources());
-        task.execute(resId);
-    }
-
-
-
     //FRAGMENTO
     public static class PlaceholderFragment extends Fragment {
-
         private GridView gridView;
         private int anchoColumna;
         private AdaptadorDePictogramas adaptador;

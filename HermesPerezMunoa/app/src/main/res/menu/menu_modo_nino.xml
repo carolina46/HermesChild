@@ -4,12 +4,6 @@
     tools:context="com.laboratorio.hermesperezmunoa.ModoNinoActivity">
 
     <item
-        android:id="@+id/nombre_nino"
-        android:orderInCategory="150"
-        android:title=""
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/modo_edicion"
         android:orderInCategory="100"
         android:title="Modo edición"

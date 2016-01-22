@@ -59,7 +59,7 @@
             android:textSize="15dp"
             android:id="@+id/BotonNuevoAlumno"
             android:background="@android:color/transparent"
-            />
+            android:clickable="false" />
 
     </LinearLayout>
 </LinearLayout>

@@ -43,7 +43,7 @@ public class AdaptadorDePictogramas extends BaseAdapter {
 
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
-            ((ModoNinoActivity) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
+            ((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
             //imageView.setImageDrawable(_activity.getResources().getDrawable(this.listaIdImagenes[position]));
 
         } else {

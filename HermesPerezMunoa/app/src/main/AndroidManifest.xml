@@ -25,7 +25,10 @@
         <activity
             android:name=".EdicionActivity"
             android:label="HERMES"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AjustesActivity"
+            android:label="HERMES"
+            android:theme="@style/AppTheme"  ></activity>
     </application>
 
 </manifest>
