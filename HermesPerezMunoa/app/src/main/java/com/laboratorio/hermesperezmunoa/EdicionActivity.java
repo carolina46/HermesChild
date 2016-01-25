@@ -101,6 +101,7 @@ public class EdicionActivity extends SuperSolapas {
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
 
+
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
                     imagenes = new Integer[]{
@@ -175,7 +176,6 @@ public class EdicionActivity extends SuperSolapas {
             width=(( width-90)/4);
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
-
 
 
             return rootView;

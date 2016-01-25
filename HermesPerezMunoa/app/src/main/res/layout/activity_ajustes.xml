@@ -17,82 +17,78 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Alumn@"
-        android:id="@+id/tituloAlumno"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="5dp"
-       />
+        android:text="ALUMN@"
+        android:id="@+id/textAlumno"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp" />
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#000000" />
-
+        android:layout_height="3dip"
+        android:background="#303F9F"
+    />
 
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingTop="20dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:paddingRight="20dp"
             android:text="Nombre"
             android:id="@+id/textNombre"/>
 
         <EditText
-            android:layout_width="246dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editNombre" />
     </LinearLayout>
 
+
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:paddingRight="20dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Apellido"
             android:id="@+id/textApellido" />
 
         <EditText
-            android:layout_width="246dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editApellido" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.04"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Sexo"
             android:id="@+id/textSexo"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center_vertical" />
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp"/>
 
         <RadioGroup
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
+                android:paddingTop="10dp">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -109,7 +105,7 @@
                     android:id="@+id/radioButtonM"
                     android:checked="false" />
 
-            </RadioGroup>
+        </RadioGroup>
 
 
 
@@ -118,7 +114,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:background="#000000" />
+        android:background="#303F9F" />
 
 
     <TextView
@@ -134,8 +130,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="10dp">
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="10dp">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -166,7 +162,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:background="#000000" />
+        android:background="#303F9F" />
 
 
     <TextView
@@ -216,7 +212,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:background="#000000" />
+        android:background="#303F9F" />
 
     <Button
         android:layout_width="wrap_content"
@@ -225,6 +221,7 @@
         android:id="@+id/buttonEliminarA"
         android:layout_gravity="center_horizontal"
      />
+
 
 
     <TextView
@@ -240,8 +237,8 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#000000" />
+        android:layout_height="3dip"
+        android:background="#303F9F" />
 
 
     <LinearLayout

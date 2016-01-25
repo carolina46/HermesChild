@@ -8,10 +8,12 @@ package com.laboratorio.hermesperezmunoa;
 public class Child {
     private String nombre;
     private String apellido;
+    private Integer id;
 
-    public Child(String nombre, String apellido) {
+    public Child(String nombre, String apellido, Integer id) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.id=id;
     }
 
     public String getNombre() {

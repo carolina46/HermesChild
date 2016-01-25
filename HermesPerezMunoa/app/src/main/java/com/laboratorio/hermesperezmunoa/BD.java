@@ -15,11 +15,14 @@ public class BD extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table chico (id_chico int primary key,nombre text, apellido text, sexo bool, tamPictograma int, pista bool, establo bool, necesidades bool, emociones bool)");
         db.execSQL("create table configuracion (ip int, puerto int)");
-        db.execSQL("create table pictograma-chico (id_chico int, id_pictograma int)");
+        db.execSQL("create table pictogramaChico (id_chico int, id_pictograma int)");
 
         db.execSQL("create table pictograma (id_pictograma int primary key, nombre text, carpeta text)");
 
         db.execSQL("insert into pictograma (nombre, carpeta) values ('casco', 'pista')");
+
+        db.execSQL("insert into chico (nombre, apellido, sexo, tamPictograma, pista, establo, necesidades, emociones) values ('Sandra', 'Gulli', false, 3, false,false,false,false)");
+        db.execSQL("insert into chico (nombre, apellido, sexo, tamPictograma, pista, establo, necesidades, emociones) values ('Carolina', 'Perez', false, 3, false,false,false,false)");
 
 
 
