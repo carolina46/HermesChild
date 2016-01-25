@@ -48,7 +48,6 @@ public class EdicionActivity extends SuperSolapas {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_edicion, menu);
         return true;
     }
 

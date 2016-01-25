@@ -3,6 +3,8 @@ package com.laboratorio.hermesperezmunoa;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ public class HermesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hermes);
 
+        //LISTADO DE NINOS
         cargarNinos();
 
         ListView listA = (ListView) this.findViewById(R.id.listaAlumnos);
@@ -39,6 +42,8 @@ public class HermesActivity extends AppCompatActivity {
             }
         });
 
+
+        //BOTON DE NUEVO NINO
         newChild = (Button) findViewById(R.id.BotonNuevoAlumno);
 
         newChild.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +56,20 @@ public class HermesActivity extends AppCompatActivity {
 
 
     }
+
+
+    //MENU
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(HermesActivity.this, ConfiguracionGeneralActivity.class);
+        startActivity(intent);
+        return true;
+    }
+
 
     private void cargarNinos(){
         DataBaseManager DBmanager = new DataBaseManager(this);
