@@ -1,8 +1,6 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -55,33 +53,7 @@ public class HermesActivity extends AppCompatActivity {
     }
 
     private void cargarNinos(){
-
-        BD db = new BD(this, "comunicador", null, 1);
-        SQLiteDatabase bd = db.getWritableDatabase();
-
-        Cursor chicos = bd.rawQuery("select nombre,apellido, id_chico from chico", null);
-        if (chicos.moveToFirst()) {
-            childList.add(new Child(chicos.getString(0), chicos.getString(1), Integer.parseInt(chicos.getString(2))));
-        }
-        bd.close();
-
-
-
-
-
-
-
-/*
-
-        childList.add(new Child ("Laura", "Aguirre"));
-        childList.add(new Child ("Angel", "Akike"));
-        childList.add(new Child ("Sandra", "Gulli"));
-        childList.add(new Child ("Diego", "Maradona"));
-        childList.add(new Child("Clara", "Marrero"));
-        childList.add(new Child ("Maria", "Ramirez"));
-        childList.add(new Child("Claudia", "Panazzi"));
-        childList.add(new Child ("Martin", "Paz"));
-        childList.add(new Child ("Marcos", "Perez"));
-        childList.add(new Child ("Harry", "Potter"));*/
+        DataBaseManager DBmanager = new DataBaseManager(this);
+        childList= DBmanager.listChild();
     }
 }
