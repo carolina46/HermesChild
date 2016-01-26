@@ -30,7 +30,12 @@
             android:name=".AjustesActivity"
             android:label="HERMES"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ConfiguracionGeneralActivity"></activity>
+
+        <activity
+            android:name=".ConfiguracionGeneralActivity"
+            android:label="HERMES">
+
+        </activity>
     </application>
 
 </manifest>

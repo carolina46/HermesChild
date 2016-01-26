@@ -13,60 +13,46 @@
     android:weightSum="1">
 
 
-    <TextView
+   <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Configuración general "
-        android:id="@+id/tituloConf"
+        android:text="Configuración general"
+        android:textSize="25dp"
         android:layout_gravity="center"
-        android:paddingBottom="10dp" />
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:id="@+id/tituloConf"/>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dip"
-        android:background="#303F9F" />
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+   <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingTop="20dp">
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingBottom="10dp"
+        android:paddingTop="30dp"
+        android:text="Dirección IP del monitor"
+        android:id="@+id/textIP"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:paddingRight="20dp"
-            android:text="Dirección IP del monitor"
-            android:id="@+id/textIP"/>
-
-        <EditText
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editIP" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+   <EditText
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        android:id="@+id/editIP"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="20dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Puerto del monitor"
-            android:id="@+id/textPuerto" />
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Puerto del monitor"
+        android:id="@+id/textPuerto" />
 
-        <EditText
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editPuerto" />
-    </LinearLayout>
+   <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPuerto"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
