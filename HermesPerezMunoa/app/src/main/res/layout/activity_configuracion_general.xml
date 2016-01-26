@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editPuerto"
         android:gravity="center"
+        android:numeric="integer"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +42,17 @@ public class ConfiguracionGeneralActivity extends AppCompatActivity {
                     aux.add( ip.getText().toString());
                     puerto = (EditText) findViewById(R.id.editPuerto);
                     aux.add( puerto.getText().toString());
-                    DataBaseManager DBmanager = new DataBaseManager(this);
-                    DBmanager.setConfiguration(aux);
 
-                    Intent intent = new Intent(ConfiguracionGeneralActivity.this, HermesActivity.class);
-                    startActivity(intent);
+                if(aux.get(0).isEmpty() || aux.get(1).isEmpty()){
+                    Toast mensaje = Toast.makeText(getApplicationContext(), "Debe completar todos los campos", Toast.LENGTH_SHORT);
+                    mensaje.show();
+                }
+                else{
+                        DataBaseManager DBmanager = new DataBaseManager(this);
+                        DBmanager.setConfiguration(aux);
+                        Intent intent = new Intent(ConfiguracionGeneralActivity.this, HermesActivity.class);
+                        startActivity(intent);
+                }
                 return true;
             default:
                 return true;
