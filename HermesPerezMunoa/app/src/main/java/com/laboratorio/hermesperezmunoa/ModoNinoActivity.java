@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class ModoNinoActivity extends SuperSolapas {
 
@@ -36,6 +37,9 @@ public class ModoNinoActivity extends SuperSolapas {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
+        //Button back del menu
+
+
 
        //RECUPERO PARAMETROS
        child =  (Child) getIntent().getExtras().getSerializable("chico");
@@ -61,6 +65,7 @@ public class ModoNinoActivity extends SuperSolapas {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_modo_nino, menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
@@ -78,7 +83,10 @@ public class ModoNinoActivity extends SuperSolapas {
             intent.putExtra("chico", child);
             startActivity(intent);
         }
-
+        if (item.getItemId() == android.R.id.home){
+            Intent intent = new Intent(ModoNinoActivity.this, HermesActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -257,27 +265,18 @@ public class ModoNinoActivity extends SuperSolapas {
                     //PlaceholderFragment.newInstance(position + 1);
         }
 
+        //cantidad de solapas
         @Override
         public int getCount() {
-            // Show total pages.
-            return 5;
+            return child.categoriasHabilitadas().size() + 1;
         }
 
+        //Nombre de las solapas
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Pista";
-                case 1:
-                    return "Establo";
-                case 2:
-                    return "Necesidades";
-                case 3:
-                    return "Emociones";
-                case 4:
-                    return child.getNombre();
-            }
-            return null;
+            List<String> categoriasHabilitadas = child.categoriasHabilitadas();
+            categoriasHabilitadas.add(child.getNombre());
+            return categoriasHabilitadas.get(position);
         }
     }
 }

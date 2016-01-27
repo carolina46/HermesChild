@@ -1,6 +1,8 @@
 package com.laboratorio.hermesperezmunoa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Carolina on 11/12/2015.
@@ -49,6 +51,15 @@ public class Child implements Serializable{
     public boolean[] getCategorias() {return categorias;}
 
     public void setCategorias(boolean[] categorias) {this.categorias = categorias;}
+
+    public List<String> categoriasHabilitadas(){
+        List<String> categoriasHabilitadas= new ArrayList<String>();
+        if(categorias[0]) categoriasHabilitadas.add("Pista");
+        if(categorias[1]) categoriasHabilitadas.add("Establo");
+        if(categorias[2]) categoriasHabilitadas.add("Necesidades");
+        if(categorias[3]) categoriasHabilitadas.add("Emociones");
+        return categoriasHabilitadas;
+    }
 
     @Override
     public String toString() {
