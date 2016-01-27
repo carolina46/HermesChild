@@ -85,13 +85,11 @@ public class DataBaseManager {
 
     public boolean childExist(String apellido, String nombre) {
         db = helper.getWritableDatabase();
-        List<Child> aux = new ArrayList<Child>();
-        Cursor chicos = db.rawQuery("select * from chico where nombre="+nombre+" and apellido=" +apellido+"", null);
+        Cursor chicos = db.rawQuery("select * from chico where nombre='"+nombre+"'" + " and apellido='"+apellido+"'", null);
         boolean existe= chicos.moveToFirst();
         chicos.close();
         db.close();
-        if(existe)return true;
-        return false;
+        return existe;
     }
 
     public void updateChild(Child child) {

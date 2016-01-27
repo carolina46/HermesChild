@@ -38,7 +38,6 @@ public class AjustesActivity extends AppCompatActivity {
         origen=bundle.getString("activityOrigen");
         //El nino existe debo caragar datos
         if(origen.equals("modoNino")){
-
             child =  (Child) getIntent().getExtras().getSerializable("chico");
             apellido = (EditText) findViewById(R.id.editApellido);
             apellido.setText(child.getApellido());
@@ -101,53 +100,67 @@ public class AjustesActivity extends AppCompatActivity {
                     Toast mensaje = Toast.makeText(getApplicationContext(), "Debe completar todos los campos", Toast.LENGTH_SHORT);
                     mensaje.show();
                 }
-                else{
-                    //COMPROBAMOS QUE EL ALUMNO NO EXISTE
+                else {
+                    //COMPROBAMOS QUE EL ALUMNO NO EXISTA
                     DataBaseManager DBmanager = new DataBaseManager(AjustesActivity.this);
-                    if(origen.equals("main") && DBmanager.childExist(apellido.getText().toString(),nombre.getText().toString()) ){
-                        Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
-                        mensaje.show();
+                    if (DBmanager.childExist(apellido.getText().toString(), nombre.getText().toString())) {
+                        if (origen.equals("modoNino")) {
+                            if (!(child.getNombre().equals(nombre.getText().toString()) && child.getApellido().equals(apellido.getText().toString()))) {
+                                Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
+                                mensaje.show();
+                            }
+                        }
+                        else {
+                            Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
+                            mensaje.show();
+                        }
+
                     }
-                    else{
+                    else {
                         //RECUPERAR DATOS
                         sexoF = (RadioButton) findViewById(R.id.radioButtonF);
                         sexo = sexoF.isChecked();
                         pictograma = (RadioButton) findViewById(R.id.radioButtonChico);
-                        if (pictograma.isChecked()){tamPictograma=5;}
-                        else{
+                        if (pictograma.isChecked()) {
+                            tamPictograma = 5;
+                        } else {
                             pictograma = (RadioButton) findViewById(R.id.radioButtonMediano);
-                            if (pictograma.isChecked()){tamPictograma=4;}
-                            else{tamPictograma=3;}
+                            if (pictograma.isChecked()) {
+                                tamPictograma = 4;
+                            } else {
+                                tamPictograma = 3;
+                            }
                         }
                         categoria = (CheckBox) findViewById(R.id.checkBoxP);
-                        categorias[0]= categoria.isChecked();
+                        categorias[0] = categoria.isChecked();
                         categoria = (CheckBox) findViewById(R.id.checkBoxE);
-                        categorias[1]= categoria.isChecked();
+                        categorias[1] = categoria.isChecked();
                         categoria = (CheckBox) findViewById(R.id.checkBoxN);
-                        categorias[2]= categoria.isChecked();
+                        categorias[2] = categoria.isChecked();
                         categoria = (CheckBox) findViewById(R.id.checkBoxEm);
-                        categorias[3]= categoria.isChecked();
+                        categorias[3] = categoria.isChecked();
 
-                        if(origen.equals("main")) {
+                        if (origen.equals("main")) {
                             //AGREGAR ALUMNO BD
-                            child=new Child(0, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma,categorias);
+                            child = new Child(0, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
                             DBmanager.addChild(child);
                             Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
                             startActivity(intent);
-                        }
-                        else{
-                          //MODIFICAR ALUMNO BD
-                            int id= child.getId();
-                            child=new Child(id, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma,categorias);
+                        } else {
+                            //MODIFICAR ALUMNO BD
+                            int id = child.getId();
+                            child = new Child(id, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
                             DBmanager.updateChild(child);
-                            Toast mensaje = Toast.makeText(getApplicationContext(), "Se guardaron los cambios", Toast.LENGTH_SHORT);
-                            mensaje.show();
-
-                        }
+                            Intent intent = new Intent(AjustesActivity.this, ModoNinoActivity.class);
+                            intent.putExtra("chico", child);
+                            startActivity(intent);
 
                         }
                     }
-                }
+
+
+            }
+        }
         });
 
 
