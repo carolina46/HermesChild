@@ -78,16 +78,9 @@ public class AjustesActivity extends AppCompatActivity {
             public void onClick(View vw) {
                 if(origen.equals("modoNino")){
                     DataBaseManager DBmanager = new DataBaseManager(AjustesActivity.this);
-                    if (DBmanager.deleteChild(child.getId())){
-                        Toast mensaje = Toast.makeText(getApplicationContext(), "SI", Toast.LENGTH_SHORT);
-                        mensaje.show();
-                    }
-                    else{
-                        Toast mensaje = Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_SHORT);
-                        mensaje.show();
-                    }
-                    //Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
-                    //startActivity(intent);
+                    DBmanager.deleteChild(child.getId());
+                    Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
+                    startActivity(intent);
                 }
 
 

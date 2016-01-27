@@ -30,7 +30,7 @@ public class DataBaseManager {
         if (chicos.moveToFirst()) {
             do {
                 boolean[] categorias={chicos.getInt(5)==1,chicos.getInt(6)==1,chicos.getInt(7)==1,chicos.getInt(8)==1};
-                aux.add(new Child(chicos.getColumnIndex("id_chico"), chicos.getString(1), chicos.getString(2), chicos.getInt(3)==0 /*sexo, 0=F*/, chicos.getInt(4),categorias));
+                aux.add(new Child(chicos.getInt(0), chicos.getString(1), chicos.getString(2), chicos.getInt(3)==0 /*sexo, 0=F*/, chicos.getInt(4),categorias));
             }while (chicos.moveToNext());
         }
         chicos.close();
@@ -86,7 +86,7 @@ public class DataBaseManager {
     public boolean childExist(String apellido, String nombre) {
         db = helper.getWritableDatabase();
         List<Child> aux = new ArrayList<Child>();
-        Cursor chicos = db.rawQuery("select * from chico where nombre="+ nombre + ", apellido=" + apellido, null);
+        Cursor chicos = db.rawQuery("select * from chico where nombre="+nombre+" and apellido=" +apellido+"", null);
         boolean existe= chicos.moveToFirst();
         chicos.close();
         db.close();
@@ -117,9 +117,9 @@ public class DataBaseManager {
 
     public boolean deleteChild(int id) {
         db = helper.getWritableDatabase();
-        int cant=db.delete("chico", "id_chico=" + id, null);
+        int cant= db.delete("chico", "id_chico=" +Integer.toString(id), null);
         db.close();
-        return cant==1;
+    return cant>0;
     }
 
 
