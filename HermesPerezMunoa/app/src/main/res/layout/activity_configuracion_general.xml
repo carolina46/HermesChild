@@ -56,4 +56,22 @@
         android:numeric="integer"
         android:layout_gravity="center_horizontal" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="40dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:id="@+id/buttonGuardarConfiguracion"
+            android:textStyle="bold"
+            android:background="#52689f"
+            android:textColor="#edebeb" />
+    </LinearLayout>
+
+
 </LinearLayout>

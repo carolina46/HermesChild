@@ -28,7 +28,7 @@ public class ModoNinoActivity extends SuperSolapas {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String nombre;
+    private Child child;
     private AppBarLayout bar;
 
 
@@ -37,14 +37,13 @@ public class ModoNinoActivity extends SuperSolapas {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
 
-        //RECUPERO PARAMETROS
-        Bundle bundle = getIntent().getExtras();
-        nombre=  bundle.getString("chico");
+       //RECUPERO PARAMETROS
+       child =  (Child) getIntent().getExtras().getSerializable("chico");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("HERMES      " + nombre );
+        toolbar.setTitle("HERMES      " + child.getNombre());
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each sections of the activity.
@@ -70,12 +69,13 @@ public class ModoNinoActivity extends SuperSolapas {
         int id = item.getItemId();
         if (id == R.id.modo_edicion) {
            Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
-           intent.putExtra("chico", nombre);
+           intent.putExtra("chico", child);
            startActivity(intent);
         }
         if(id == R.id.ajustes) {
             Intent intent = new Intent(ModoNinoActivity.this, AjustesActivity.class);
-            intent.putExtra("chico", nombre);
+            intent.putExtra("activityOrigen", "modoNino");
+            intent.putExtra("chico", child);
             startActivity(intent);
         }
 
@@ -275,7 +275,7 @@ public class ModoNinoActivity extends SuperSolapas {
                 case 3:
                     return "Emociones";
                 case 4:
-                    return nombre;
+                    return child.getNombre();
             }
             return null;
         }

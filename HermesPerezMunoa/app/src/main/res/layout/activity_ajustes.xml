@@ -215,14 +215,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="20dp">
+        android:paddingTop="30dp">
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Eliminar Alumn@"
-            android:id="@+id/buttonEliminarA" />
+            android:text="Guardar"
+            android:id="@+id/buttonAgregarA"
+            android:textStyle="bold"
+            android:background="#52689f"
+            android:textColor="#edebeb"
+            android:layout_marginRight="30dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:id="@+id/buttonEliminarA"
+            android:textStyle="bold"
+            android:background="#52689f"
+            android:textColor="#edebeb" />
+
     </LinearLayout>
 
 

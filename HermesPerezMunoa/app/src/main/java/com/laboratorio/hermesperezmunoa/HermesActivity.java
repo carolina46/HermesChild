@@ -37,7 +37,7 @@ public class HermesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(HermesActivity.this, ModoNinoActivity.class);
                 Child c = (Child) adapterView.getAdapter().getItem(position);
-                intent.putExtra("chico", c.getNombre());
+                intent.putExtra("chico", c);
                 startActivity(intent);
             }
         });
@@ -50,6 +50,7 @@ public class HermesActivity extends AppCompatActivity {
             @Override
             public void onClick(View vw) {
                 Intent intent = new Intent(HermesActivity.this, AjustesActivity.class);
+                intent.putExtra("activityOrigen", "main");
                 startActivity(intent);
             }
         });
@@ -70,7 +71,7 @@ public class HermesActivity extends AppCompatActivity {
         return true;
     }
 
-
+    //CONSULTA BD
     private void cargarNinos(){
         DataBaseManager DBmanager = new DataBaseManager(this);
         childList= DBmanager.listChild();

@@ -17,7 +17,7 @@ import android.widget.GridView;
 
 public class EdicionActivity extends SuperSolapas {
 
-    private String nombre;
+    private Child child;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -28,8 +28,7 @@ public class EdicionActivity extends SuperSolapas {
 
 
         //RECUPERO PARAMETROS
-        Bundle bundle = getIntent().getExtras();
-        nombre=  bundle.getString("chico");
+        child =  (Child) getIntent().getExtras().getSerializable("chico");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -206,7 +205,7 @@ public class EdicionActivity extends SuperSolapas {
                 case 3:
                     return "Emociones";
                 case 4:
-                    return nombre;
+                    return child.getNombre();
             }
             return null;
         }
