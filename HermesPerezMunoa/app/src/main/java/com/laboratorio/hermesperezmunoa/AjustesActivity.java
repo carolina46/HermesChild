@@ -103,64 +103,60 @@ public class AjustesActivity extends AppCompatActivity {
                 else {
                     //COMPROBAMOS QUE EL ALUMNO NO EXISTA
                     DataBaseManager DBmanager = new DataBaseManager(AjustesActivity.this);
-                    if (DBmanager.childExist(apellido.getText().toString(), nombre.getText().toString())) {
-                        if (origen.equals("modoNino")) {
-                            if (!(child.getNombre().equals(nombre.getText().toString()) && child.getApellido().equals(apellido.getText().toString()))) {
-                                Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
-                                mensaje.show();
-                            }
-                        }
-                        else {
-                            Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
-                            mensaje.show();
-                        }
-
+                    boolean existe=DBmanager.childExist(apellido.getText().toString(), nombre.getText().toString());
+                    if (origen.equals("main") && existe ) {
+                        Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
+                        mensaje.show();
                     }
                     else {
-                        //RECUPERAR DATOS
-                        sexoF = (RadioButton) findViewById(R.id.radioButtonF);
-                        sexo = sexoF.isChecked();
-                        pictograma = (RadioButton) findViewById(R.id.radioButtonChico);
-                        if (pictograma.isChecked()) {
-                            tamPictograma = 5;
-                        } else {
-                            pictograma = (RadioButton) findViewById(R.id.radioButtonMediano);
+                        if (origen.equals("modoNino") && existe && !(child.getNombre().equals(nombre.getText().toString()) && child.getApellido().equals(apellido.getText().toString()))) {
+                            Toast mensaje = Toast.makeText(getApplicationContext(), "El alumno ya existe", Toast.LENGTH_SHORT);
+                            mensaje.show();
+                        }else{
+                            //RECUPERAR DATOS
+                            sexoF = (RadioButton) findViewById(R.id.radioButtonF);
+                            sexo = sexoF.isChecked();
+                            pictograma = (RadioButton) findViewById(R.id.radioButtonChico);
                             if (pictograma.isChecked()) {
-                                tamPictograma = 4;
+                                tamPictograma = 5;
                             } else {
-                                tamPictograma = 3;
+                                pictograma = (RadioButton) findViewById(R.id.radioButtonMediano);
+                                if (pictograma.isChecked()) {
+                                    tamPictograma = 4;
+                                } else {
+                                    tamPictograma = 3;
+                                }
                             }
-                        }
-                        categoria = (CheckBox) findViewById(R.id.checkBoxP);
-                        categorias[0] = categoria.isChecked();
-                        categoria = (CheckBox) findViewById(R.id.checkBoxE);
-                        categorias[1] = categoria.isChecked();
-                        categoria = (CheckBox) findViewById(R.id.checkBoxN);
-                        categorias[2] = categoria.isChecked();
-                        categoria = (CheckBox) findViewById(R.id.checkBoxEm);
-                        categorias[3] = categoria.isChecked();
+                            categoria = (CheckBox) findViewById(R.id.checkBoxP);
+                            categorias[0] = categoria.isChecked();
+                            categoria = (CheckBox) findViewById(R.id.checkBoxE);
+                            categorias[1] = categoria.isChecked();
+                            categoria = (CheckBox) findViewById(R.id.checkBoxN);
+                            categorias[2] = categoria.isChecked();
+                            categoria = (CheckBox) findViewById(R.id.checkBoxEm);
+                            categorias[3] = categoria.isChecked();
 
-                        if (origen.equals("main")) {
-                            //AGREGAR ALUMNO BD
-                            child = new Child(0, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
-                            DBmanager.addChild(child);
-                            Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
-                            startActivity(intent);
-                        } else {
-                            //MODIFICAR ALUMNO BD
-                            int id = child.getId();
-                            child = new Child(id, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
-                            DBmanager.updateChild(child);
-                            Intent intent = new Intent(AjustesActivity.this, ModoNinoActivity.class);
-                            intent.putExtra("chico", child);
-                            startActivity(intent);
+                            if (origen.equals("main")) {
+                                //AGREGAR ALUMNO BD
+                                child = new Child(0, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
+                                DBmanager.addChild(child);
+                                Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
+                                startActivity(intent);
+                            } else {
+                                //MODIFICAR ALUMNO BD
+                                int id = child.getId();
+                                child = new Child(id, nombre.getText().toString(), apellido.getText().toString(), sexo, tamPictograma, categorias);
+                                DBmanager.updateChild(child);
+                                Intent intent = new Intent(AjustesActivity.this, ModoNinoActivity.class);
+                                intent.putExtra("chico", child);
+                                startActivity(intent);
 
+                            }
                         }
                     }
 
-
+                }
             }
-        }
         });
 
 
