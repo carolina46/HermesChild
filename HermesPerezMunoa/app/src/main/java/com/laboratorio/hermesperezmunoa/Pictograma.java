@@ -8,6 +8,7 @@ public class Pictograma {
     private String nombre;
     private String carpeta;
     private int id;
+    private boolean selected=false;
 
     public Pictograma(int id, String nombre, String carpeta ){
         this.nombre=nombre;
@@ -37,6 +38,14 @@ public class Pictograma {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean s) {
+        this.selected = s;
     }
 
 

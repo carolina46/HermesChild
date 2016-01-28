@@ -49,16 +49,17 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         if (convertView == null) {
             imageView = new ImageView(_activity);
             imageView.setPadding(2, 2, 2, 2);
-            imageView.setBackgroundColor(Color.parseColor("#9eb7c9"));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
             //((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
 
 
+            Pictograma p= (Pictograma)getItem(position);
+            if(p.isSelected())imageView.setBackgroundColor(Color.parseColor("#303F9F"));
+
             InputStream ims = null;
             try {
-                Pictograma p= (Pictograma)getItem(position);
-                ims = _activity.getAssets().open(p.getCarpeta()+"/"+p.getNombre()+".png");
+               ims = _activity.getAssets().open(p.getCarpeta()+"/"+p.getNombre()+".png");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -82,6 +82,7 @@ public class EdicionActivity extends SuperSolapas {
         private int anchoColumna;
         private String[] imagenes;
         private List<Pictograma> pictogramasCategoria;
+        private List<Pictograma> pictogramasChico;
 
         public PlaceholderFragment() {
         }
@@ -105,6 +106,7 @@ public class EdicionActivity extends SuperSolapas {
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
 
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
+            pictogramasChico = DBmanager.getPictogramasChild(1);
 
 
 
@@ -122,10 +124,20 @@ public class EdicionActivity extends SuperSolapas {
                     pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones");
                     break;
                 case 4:
-                    pictogramasCategoria = DBmanager.getPictogramasChild(1);
+                    pictogramasCategoria = pictogramasChico;
             }
 
+            //Pinto pictogramas seleccionados
+            if  ((int) getArguments().getInt(ARG_SECTION_NUMBER) !=4) {
+                for(Pictograma p: pictogramasChico){
+                    for(int i=0; i<pictogramasCategoria.size(); i++){
+                        if(pictogramasCategoria.get(i).getId()== p.getId()){
+                            pictogramasCategoria.get(i).setSelected(true);
+                        }
+                    }
 
+                }
+            }
 
             //TAMANO PANTALLA
             DisplayMetrics dm = new DisplayMetrics();
@@ -140,6 +152,11 @@ public class EdicionActivity extends SuperSolapas {
             width=(( width-90)/4);
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
+
+
+
+
+
 
 
             //Listener gridview
