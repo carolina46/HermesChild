@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EdicionActivity"
-            android:label="HERMES"
+            android:label="HERMES  EDICIÓN"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AjustesActivity"
@@ -33,7 +33,7 @@
 
         <activity
             android:name=".ConfiguracionGeneralActivity"
-            android:label="HERMES">
+            android:label="HERMES  CONFIGURACINÓN">
 
         </activity>
     </application>

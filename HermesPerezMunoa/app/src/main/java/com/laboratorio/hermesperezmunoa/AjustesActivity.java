@@ -37,6 +37,9 @@ public class AjustesActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         origen=bundle.getString("activityOrigen");
         //El nino existe debo caragar datos
+
+
+
         if(origen.equals("modoNino")){
             child =  (Child) getIntent().getExtras().getSerializable("chico");
             apellido = (EditText) findViewById(R.id.editApellido);
@@ -70,6 +73,7 @@ public class AjustesActivity extends AppCompatActivity {
 
 
 
+
         //BOTON ELIMINAR
         eliminarChico = (Button) findViewById(R.id.buttonEliminarA);
         eliminarChico.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +84,8 @@ public class AjustesActivity extends AppCompatActivity {
                     DBmanager.deleteChild(child.getId());
                     Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
                     startActivity(intent);
+
+                    ///Eliminar pictogramas asociados
                 }
 
 

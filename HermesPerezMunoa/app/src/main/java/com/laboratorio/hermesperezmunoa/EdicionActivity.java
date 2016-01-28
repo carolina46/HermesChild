@@ -1,5 +1,6 @@
 package com.laboratorio.hermesperezmunoa;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import java.util.List;
 
 public class EdicionActivity extends SuperSolapas {
 
@@ -51,18 +54,18 @@ public class EdicionActivity extends SuperSolapas {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-
-                return true;
-            default:
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(EdicionActivity.this, ModoNinoActivity.class);
+            intent.putExtra("chico", child);
+            startActivity(intent);
         }
+        return true;
 
     }
 
@@ -78,7 +81,8 @@ public class EdicionActivity extends SuperSolapas {
         private AdaptadorDePictogramas adaptador;
         private int anchoColumna;
         private String[] imagenes;
-        private String[] pictogramasDelNino;
+        private List<Pictograma> pictogramasCategoria;
+
         public PlaceholderFragment() {
         }
 
@@ -101,76 +105,24 @@ public class EdicionActivity extends SuperSolapas {
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
 
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
-            pictogramasDelNino = DBmanager.getPictogramas(1);
+
 
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
-
-                    imagenes=new String[]{
-                            "pista/casco.png",
-                            "pista/chapas.png",
-                            "pista/letras.png",
-                            "pista/cubos.png",
-                            "pista/maracas.png",
-                            "pista/palos.png",
-                            "pista/pato.png",
-                            "pista/pelota.png",
-                            "pista/riendas.png",
-                            "pista/burbujas.png",
-                            "pista/broches.png",
-                            "pista/aro.png",
-                            "pista/tarima.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoria("pista");
                     break;
                 case 1:
-                    imagenes=new String[]{
-                            "establo/cepillo.png",
-                            "establo/limpieza.png",
-                            "establo/escarba.png",
-                            "establo/montura.png",
-                            "establo/matra.png",
-                            "establo/raqueta_dura.png",
-                            "establo/raqueta_blanda.png",
-                            "establo/pasto.png",
-                            "establo/zanahoria.png",
-                            "establo/caballo_b.png",
-                            "establo/caballo_m.png",
-                            "establo/caballo_n.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoria("establo");
                     break;
                 case 2:
-                    imagenes=new String[]{
-                            "necesidades/bano.png" ,
-                            "necesidades/sed.png" ,
-                            "necesidades/seed.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoria("necesidades");
                     break;
                 case 3:
-                    imagenes=new String[]{
-                            "emociones/dolorida.png",
-                            "emociones/dolorido.png",
-                            "emociones/cansada.png",
-                            "emociones/cansado.png",
-                            "emociones/triste.png",
-                            "emociones/tristee.png",
-                            "emociones/sorprendida.png",
-                            "emociones/sorprendido.png",
-                            "emociones/asustado.png",
-                            "emociones/asustada.png",
-                            "emociones/contenta.png",
-                            "emociones/contento.png",
-                            "emociones/enojada.png",
-                            "emociones/enojado.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones");
                     break;
                 case 4:
-                    imagenes=new String[]{
-                            "emociones/dolorida.png",
-                            "emociones/dolorido.png",
-                            "emociones/cansada.png",
-                            "emociones/asustado.png",
-                            "emociones/asustada.png",
-                            "emociones/contenta.png",
-                            "emociones/contento.png",
-                            "emociones/enojada.png",
-                            "emociones/enojado.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasChild(1);
             }
 
 
@@ -186,7 +138,7 @@ public class EdicionActivity extends SuperSolapas {
 
             //TAMANO COLUMNAS DEL GRID
             width=(( width-90)/4);
-            adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
+            adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
 
@@ -196,8 +148,11 @@ public class EdicionActivity extends SuperSolapas {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                             ImageView tv = (ImageView) gridView.getChildAt(position);
-                            tv.setBackgroundColor(Color.parseColor("#000000"));
-                           //eliminar elemento bd y gridview
+                            int pictograma = ((Pictograma) gridView.getAdapter().getItem(position)).getId();
+                            DataBaseManager DBmanager = new DataBaseManager(getActivity());
+                            DBmanager.removePictogramaChico(pictograma, 1);
+
+
                             return true;
 
                         }
@@ -218,7 +173,11 @@ public class EdicionActivity extends SuperSolapas {
                         }
                         else{
                             tv.setBackgroundColor(Color.parseColor("#303F9F"));
-                            //ALTA BD
+                            int pictograma = ((Pictograma) gridView.getAdapter().getItem(position)).getId();
+                            DataBaseManager DBmanager = new DataBaseManager(getActivity());
+                            DBmanager.addPictogramaChico(pictograma, 1);
+
+
 
                         }
 
@@ -238,6 +197,8 @@ public class EdicionActivity extends SuperSolapas {
 
             return rootView;
         }
+
+
 
     }
 

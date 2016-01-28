@@ -11,14 +11,15 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class AdaptadorDePictogramas extends BaseAdapter {
 
     private Activity _activity;
-    private String[] listaIdImagenes;
+    private List<Pictograma> listaIdImagenes;
     private int imageWidth;
 
-    public AdaptadorDePictogramas(Activity activity, String[] listaIdImagenes, int imageWidth) {
+    public AdaptadorDePictogramas(Activity activity, List<Pictograma> listaIdImagenes, int imageWidth) {
         this._activity = activity;
         this.listaIdImagenes = listaIdImagenes;
         this.imageWidth = imageWidth;
@@ -27,12 +28,12 @@ public class AdaptadorDePictogramas extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return this.listaIdImagenes.length;
+        return this.listaIdImagenes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return this.listaIdImagenes[position];
+        return this.listaIdImagenes.get(position);
     }
 
     @Override
@@ -56,7 +57,8 @@ public class AdaptadorDePictogramas extends BaseAdapter {
 
             InputStream ims = null;
             try {
-                ims = _activity.getAssets().open(listaIdImagenes[position]);
+                Pictograma p= (Pictograma)getItem(position);
+                ims = _activity.getAssets().open(p.getCarpeta()+"/"+p.getNombre()+".png");
             } catch (IOException e) {
                 e.printStackTrace();
             }

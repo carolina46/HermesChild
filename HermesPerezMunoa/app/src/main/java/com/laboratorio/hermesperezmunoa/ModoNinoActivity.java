@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModoNinoActivity extends SuperSolapas {
@@ -47,7 +48,7 @@ public class ModoNinoActivity extends SuperSolapas {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("HERMES      " + child.getNombre());
+        toolbar.setTitle("HERMES  " + child.getNombre().toUpperCase());
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each sections of the activity.
@@ -96,6 +97,8 @@ public class ModoNinoActivity extends SuperSolapas {
         private int anchoColumna;
         private AdaptadorDePictogramas adaptador;
         private String[] imagenes;
+        private List<Pictograma> pictogramas;
+        private Child child;
 
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -134,6 +137,10 @@ public class ModoNinoActivity extends SuperSolapas {
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
 
 
+            //List<String> categoriasHabilitadas = child.categoriasHabilitadas();
+            //categoriasHabilitadas.add(child.getNombre());
+
+            //List<String[]> pictogramaCategoria = new ArrayList<String[]>();
 
 
 
@@ -208,8 +215,9 @@ public class ModoNinoActivity extends SuperSolapas {
             gridView.setColumnWidth((width*75)/100);
 
             //TAMANO COLUMNAS DEL GRID
+            pictogramas=new ArrayList<Pictograma>();
             width=((  ((width*75)/100)  -48)/3);
-            adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
+            adaptador = new AdaptadorDePictogramas(getActivity(), pictogramas,width);
             gridView.setAdapter(adaptador);
 
 
