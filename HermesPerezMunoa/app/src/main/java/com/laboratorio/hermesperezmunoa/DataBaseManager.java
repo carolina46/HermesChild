@@ -141,7 +141,50 @@ public class DataBaseManager {
 
                     //CARGA INICIAL DE TODOS LOS PICTOGRAMAS
                     db.execSQL("insert into pictograma (nombre, carpeta) values ('casco', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('chapas', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('letras', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('cubos', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('maracas', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('palos', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('pato', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('pelota', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('riendas', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('burbujas', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('broches', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('aro', 'pista')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('tarima', 'pista')");
 
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('cepillo', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('limpieza', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('escarba', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('montura', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('matra', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('raqueta_dura', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('raqueta_blanda', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('pasto', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('zanahoria', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('caballo_b', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('caballo_m', 'establo')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('caballo_n', 'establo')");
+
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('bano', 'necesidades')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('sed', 'necesidades')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('seed', 'necesidades')");
+
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('dolorida', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('dolorido', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('cansada', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('cansado', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('triste', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('tristee', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('sorprendida', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('sorprendido', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('asustado', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('asustada', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('contenta', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('contento', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('enojada', 'emociones')");
+                    db.execSQL("insert into pictograma (nombre, carpeta) values ('enojado', 'emociones')");
                 }
 
                 @Override
