@@ -1,6 +1,7 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,12 +36,15 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         return position;
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(_activity);
             imageView.setPadding(2,2,2,2);
+            imageView.setBackgroundColor(Color.parseColor("#9eb7c9"));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
             ((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);

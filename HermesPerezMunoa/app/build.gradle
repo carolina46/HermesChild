@@ -19,8 +19,8 @@ android {
     }
     sourceSets {
         main {
-            assets.srcDirs = ['src/main/assets', 'src/main/res/drawable/pista', 'src/main/assets/pista', 'src/main/res/pista', 'src/main/assets/establo', 'src/main/assets/necesidades', 'src/main/assets/emociones']
-            resources.srcDirs = ['src/main/resources', 'src/main/res/audios']
+            assets.srcDirs = ['src/main/assets', 'src/main/res/drawable/pista', 'src/main/assets/pista', 'src/main/res/pista', 'src/main/assets/establo', 'src/main/assets/necesidades', 'src/main/assets/emociones', 'src/main/assets/']
+            resources.srcDirs = ['src/main/resources', 'src/main/res/audios', 'src/main/pista/']
         }
     }
 }

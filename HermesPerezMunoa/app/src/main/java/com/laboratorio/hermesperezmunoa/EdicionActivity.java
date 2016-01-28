@@ -78,6 +78,7 @@ public class EdicionActivity extends SuperSolapas {
         private AdaptadorDePictogramas adaptador;
         private int anchoColumna;
         private Integer[] imagenes;
+        private String[] pictogramasDelNino;
         public PlaceholderFragment() {
         }
 
@@ -89,7 +90,6 @@ public class EdicionActivity extends SuperSolapas {
             return fragment;
         }
 
-
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_edicion, container, false);
@@ -99,6 +99,9 @@ public class EdicionActivity extends SuperSolapas {
             //CONTENIDO DEL FRAGMENTO
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
+
+            DataBaseManager DBmanager = new DataBaseManager(getActivity());
+            pictogramasDelNino = DBmanager.getPictogramas(1);
 
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
@@ -158,7 +161,21 @@ public class EdicionActivity extends SuperSolapas {
                             R.drawable.enojado};
                     break;
                 case 4:
-                    imagenes = new Integer[0];
+                    //imagenes = new Integer[100];
+                    /*for (int i=0; i<pictogramasDelNino.length;i++){
+                        imagenes[i]= getResources().getString(getResources().getIdentifier(pictogramasDelNino[i], "string", getContext().getPackageName()));
+                    }*/
+
+                    imagenes = new Integer[]{
+                            R.drawable.dolorida,
+                            R.drawable.dolorido,
+                            R.drawable.cansada,
+                            R.drawable.cansado,
+                            R.drawable.asustada,
+                            R.drawable.contenta,
+                            R.drawable.contento,
+                            R.drawable.enojada,
+                            R.drawable.enojado};
             }
 
 
@@ -176,18 +193,50 @@ public class EdicionActivity extends SuperSolapas {
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
 
+
             //Listener gridview
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View v,
-                                        int position, long id) {
-                    ImageView tv = (ImageView) gridView.getChildAt(position);
-                    tv.setBackgroundColor(Color.parseColor("#303F9F"));
-                    //Agregar a solapa del alumno
-                    //ALTA BD
+            if((int) getArguments().getInt(ARG_SECTION_NUMBER)==4){
+                    gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                            ImageView tv = (ImageView) gridView.getChildAt(position);
+                            tv.setBackgroundColor(Color.parseColor("#000000"));
+                           //eliminar elemento bd y gridview
+                            return true;
+
+                        }
+                    });
+
 
                 }
+                else{
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View v,
+                                            int position, long id) {
+                        ImageView tv = (ImageView) gridView.getChildAt(position);
 
-            });
+                        if(false){//saber que concha de color tiene de fondo!!!!
+                            tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
+                            //Baja bd
+
+                        }
+                        else{
+                            tv.setBackgroundColor(Color.parseColor("#303F9F"));
+                            //ALTA BD
+
+                        }
+
+
+
+                    }
+
+                });
+
+            }
+
+
+
+
 
 
 

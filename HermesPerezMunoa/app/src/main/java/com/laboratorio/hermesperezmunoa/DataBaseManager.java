@@ -120,6 +120,27 @@ public class DataBaseManager {
     return cant>0;
     }
 
+    public String[] getPictogramas(int i) {
+        db = helper.getWritableDatabase();
+        Cursor pictogramas = db.rawQuery("select nombre " +
+                                    "from pictogramaChico inner join pictograma on (pictogramaChico.id_pictograma = pictograma.id_pictograma) " +
+                                    "where id_chico="+Integer.toString(i), null);
+
+        String[] pictogramasChico = new String[100];
+        int pos=0;
+
+        if (pictogramas.moveToFirst()) {
+            do {
+                pictogramasChico[pos]= pictogramas.getString(0);
+                pos++;
+            }while (pictogramas.moveToNext());
+        }
+
+        db.close();
+        pictogramas.close();
+        return pictogramasChico;
+    }
+
 
     public class DataBaseHelper extends SQLiteOpenHelper {
 
