@@ -77,7 +77,7 @@ public class EdicionActivity extends SuperSolapas {
         private GridView gridView;
         private AdaptadorDePictogramas adaptador;
         private int anchoColumna;
-        private Integer[] imagenes;
+        private String[] imagenes;
         private String[] pictogramasDelNino;
         public PlaceholderFragment() {
         }
@@ -106,77 +106,73 @@ public class EdicionActivity extends SuperSolapas {
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
-                    imagenes = new Integer[]{
-                            R.drawable.casco,
-                            R.drawable.chapas,
-                            R.drawable.letras,
-                            R.drawable.cubos,
-                            R.drawable.maracas,
-                            R.drawable.palos,
-                            R.drawable.pato,
-                            R.drawable.pelota,
-                            R.drawable.riendas,
-                            R.drawable.burbujas,
-                            R.drawable.broches,
-                            R.drawable.aro,
-                            R.drawable.tarima
-                    };
+
+                    imagenes=new String[]{
+                            "pista/casco.png",
+                            "pista/chapas.png",
+                            "pista/letras.png",
+                            "pista/cubos.png",
+                            "pista/maracas.png",
+                            "pista/palos.png",
+                            "pista/pato.png",
+                            "pista/pelota.png",
+                            "pista/riendas.png",
+                            "pista/burbujas.png",
+                            "pista/broches.png",
+                            "pista/aro.png",
+                            "pista/tarima.png"};
                     break;
                 case 1:
-                    imagenes = new Integer[]{
-                            R.drawable.cepillo,
-                            R.drawable.limpieza,
-                            R.drawable.escarba,
-                            R.drawable.montura,
-                            R.drawable.matra,
-                            R.drawable.raqueta_dura,
-                            R.drawable.raqueta_blanda,
-                            R.drawable.pasto,
-                            R.drawable.zanahoria,
-                            R.drawable.caballo_b,
-                            R.drawable.caballo_m,
-                            R.drawable.caballo_n};
+                    imagenes=new String[]{
+                            "establo/cepillo.png",
+                            "establo/limpieza.png",
+                            "establo/escarba.png",
+                            "establo/montura.png",
+                            "establo/matra.png",
+                            "establo/raqueta_dura.png",
+                            "establo/raqueta_blanda.png",
+                            "establo/pasto.png",
+                            "establo/zanahoria.png",
+                            "establo/caballo_b.png",
+                            "establo/caballo_m.png",
+                            "establo/caballo_n.png"};
                     break;
                 case 2:
-                    imagenes = new Integer[]{
-                            R.drawable.bano,
-                            R.drawable.sed,
-                            R.drawable.seed};
+                    imagenes=new String[]{
+                            "necesidades/bano.png" ,
+                            "necesidades/sed.png" ,
+                            "necesidades/seed.png"};
                     break;
                 case 3:
-                    imagenes = new Integer[]{
-                            R.drawable.dolorida,
-                            R.drawable.dolorido,
-                            R.drawable.cansada,
-                            R.drawable.cansado,
-                            R.drawable.triste,
-                            R.drawable.tristee,
-                            R.drawable.sorprendida,
-                            R.drawable.sorprendido,
-                            R.drawable.asustado,
-                            R.drawable.asustada,
-                            R.drawable.contenta,
-                            R.drawable.contento,
-                            R.drawable.enojada,
-                            R.drawable.enojado};
+                    imagenes=new String[]{
+                            "emociones/dolorida.png",
+                            "emociones/dolorido.png",
+                            "emociones/cansada.png",
+                            "emociones/cansado.png",
+                            "emociones/triste.png",
+                            "emociones/tristee.png",
+                            "emociones/sorprendida.png",
+                            "emociones/sorprendido.png",
+                            "emociones/asustado.png",
+                            "emociones/asustada.png",
+                            "emociones/contenta.png",
+                            "emociones/contento.png",
+                            "emociones/enojada.png",
+                            "emociones/enojado.png"};
                     break;
                 case 4:
-                    //imagenes = new Integer[100];
-                    /*for (int i=0; i<pictogramasDelNino.length;i++){
-                        imagenes[i]= getResources().getString(getResources().getIdentifier(pictogramasDelNino[i], "string", getContext().getPackageName()));
-                    }*/
-
-                    imagenes = new Integer[]{
-                            R.drawable.dolorida,
-                            R.drawable.dolorido,
-                            R.drawable.cansada,
-                            R.drawable.cansado,
-                            R.drawable.asustada,
-                            R.drawable.contenta,
-                            R.drawable.contento,
-                            R.drawable.enojada,
-                            R.drawable.enojado};
+                    imagenes=new String[]{
+                            "emociones/dolorida.png",
+                            "emociones/dolorido.png",
+                            "emociones/cansada.png",
+                            "emociones/asustado.png",
+                            "emociones/asustada.png",
+                            "emociones/contenta.png",
+                            "emociones/contento.png",
+                            "emociones/enojada.png",
+                            "emociones/enojado.png"};
             }
+
 
 
             //TAMANO PANTALLA
