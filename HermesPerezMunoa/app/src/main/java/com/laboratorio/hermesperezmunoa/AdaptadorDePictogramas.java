@@ -40,7 +40,7 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(_activity);
-
+            imageView.setPadding(2,2,2,2);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
             ((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);

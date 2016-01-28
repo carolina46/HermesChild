@@ -1,5 +1,6 @@
 package com.laboratorio.hermesperezmunoa;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 public class EdicionActivity extends SuperSolapas {
 
@@ -172,6 +175,20 @@ public class EdicionActivity extends SuperSolapas {
             width=(( width-90)/4);
             adaptador = new AdaptadorDePictogramas(getActivity(), imagenes,width);
             gridView.setAdapter(adaptador);
+
+            //Listener gridview
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v,
+                                        int position, long id) {
+                    ImageView tv = (ImageView) gridView.getChildAt(position);
+                    tv.setBackgroundColor(Color.parseColor("#303F9F"));
+                    //Agregar a solapa del alumno
+                    //ALTA BD
+
+                }
+
+            });
+
 
 
             return rootView;
