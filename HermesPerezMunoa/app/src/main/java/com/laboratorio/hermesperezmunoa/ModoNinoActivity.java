@@ -115,7 +115,7 @@ public class ModoNinoActivity extends SuperSolapas {
             View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
             //Contenido
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
-            DataBaseManager DBmanager = new DataBaseManager(getActivity());
+            final DataBaseManager DBmanager = new DataBaseManager(getActivity());
             pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             List<String> categoriasHabilitadas = child.categoriasHabilitadas();
             categoriasHabilitadas.add(child.getNombre());
@@ -166,11 +166,12 @@ public class ModoNinoActivity extends SuperSolapas {
                     mp.start();    }
             });
 
-            //Listener del gridView para los sonidos
+            //Listener del gridView : reproduce sonido y agrega notificacion
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
                     Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
+                    //Sonido
                     try {
                         AssetFileDescriptor ims = null;
                         ims = getActivity().getAssets().openFd(p.getCarpeta()+"/"+p.getNombre()+".m4a");
@@ -181,6 +182,9 @@ public class ModoNinoActivity extends SuperSolapas {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //Notificacion
+                    DataBaseManager dBmanager = new DataBaseManager(getActivity());
+                    dBmanager.addNotificacion(child.getNombre() + " " + child.getApellido(), p.getNombre(),p.getCarpeta());
             }
 
             });

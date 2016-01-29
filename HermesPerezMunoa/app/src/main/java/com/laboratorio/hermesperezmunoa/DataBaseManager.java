@@ -192,6 +192,17 @@ public class DataBaseManager {
         db.close();
     }
 
+    public void addNotificacion(String nombreChico, String contenidoPictograma, String categoriaPictograma) {
+        db = helper.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        registro.put("nombreChico", nombreChico);
+        registro.put("contenidoPictograma", contenidoPictograma);
+        registro.put("categoriaPictograma", categoriaPictograma);
+        db.insert("notificacion", null, registro);
+        db.close();
+
+    }
+
 
     public class DataBaseHelper extends SQLiteOpenHelper {
 
