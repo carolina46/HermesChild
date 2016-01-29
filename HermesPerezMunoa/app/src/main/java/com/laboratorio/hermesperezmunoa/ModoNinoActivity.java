@@ -39,26 +39,17 @@ public class ModoNinoActivity extends SuperSolapas {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
-        //Button back del menu
-
-
-
-        //RECUPERO PARAMETROS
+       //Parametros
         child = (Child) getIntent().getExtras().getSerializable("chico");
-
-
+        //Titulo menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        toolbar.setTitle("HERMES  " + child.getNombre().toUpperCase());
+        toolbar.setTitle("HERMES  " + (child.getNombre() + " " + child.getApellido()).toUpperCase());
         setSupportActionBar(toolbar);
-
         // Create the adapter that will return a fragment for each sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), child);
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
@@ -92,7 +83,10 @@ public class ModoNinoActivity extends SuperSolapas {
         return super.onOptionsItemSelected(item);
     }
 
-    //FRAGMENTO
+
+
+
+    //////////////////////////////////////////////////////////
     public static class PlaceholderFragment extends Fragment {
         private GridView gridView;
         private int anchoColumna;
@@ -119,35 +113,24 @@ public class ModoNinoActivity extends SuperSolapas {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
-
-            //CONTENIDO DEL FRAGMENTO
+            //Contenido
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
-
-            pictogramasChico = DBmanager.getPictogramasChild(child.getId());//cambiar por id_chico
-            child = DBmanager.listChild().get(0);
+            pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             List<String> categoriasHabilitadas = child.categoriasHabilitadas();
             categoriasHabilitadas.add(child.getNombre());
+            //Agrego pictograms dependiendo numero de solapa
             String c= categoriasHabilitadas.get(((int) getArguments().getInt(ARG_SECTION_NUMBER)));
-            if(c.equals(child.getNombre())){
-                pictogramasCategoria = pictogramasChico;
-            }
-            else{
-                pictogramasCategoria  = DBmanager.getPictogramasCategoriaChico(c, 1);
-            }
+            if(c.equals(child.getNombre())){pictogramasCategoria = pictogramasChico;}
+            else{pictogramasCategoria  = DBmanager.getPictogramasCategoriaChico(c, child.getId());}
 
-
-
-            //TAMANO PANTALLA
+            //Calculo tamaño pantalla
             DisplayMetrics dm = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int width = dm.widthPixels;
-
-            //ESPACIO DISPONIBLE PARA GRID
+            //Determino espacio para el gridView
             gridView.setColumnWidth((width*75)/100);
-
-            //TAMANO COLUMNAS DEL GRID
-            //width=((  ((width*75)/100)  -48)/3);
+            //Tamano columnas del gridView
             if (child.getTamPictograma() == 3){
                 width=((  ((width*75)/100)  -48)/3);
                 gridView.setNumColumns(3);
@@ -162,7 +145,6 @@ public class ModoNinoActivity extends SuperSolapas {
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
-
             //TAMAÑO ADAPTATIVO DEL SI Y NO
             ImageView im = (ImageView) rootView.findViewById(R.id.no);
             im.getLayoutParams().height=width;
@@ -172,9 +154,7 @@ public class ModoNinoActivity extends SuperSolapas {
                 @Override
                 public void onClick(View v){
                     MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.no );
-                    mp.start();
-
-                }
+                    mp.start();    }
             });
 
             im = (ImageView) rootView.findViewById(R.id.si);
@@ -185,23 +165,16 @@ public class ModoNinoActivity extends SuperSolapas {
                 @Override
                 public void onClick(View v){
                     MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.si );
-                    mp.start();
-
-                }
+                    mp.start();    }
             });
 
-
-
-
+            //Listener del gridView para los sonidos
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
-
                     Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
-
                     try {
                         AssetFileDescriptor ims = null;
-                        //ims = getActivity().getAssets().openFd(p.getCarpeta() + "/" + p.getNombre() + ".m4a");
                         ims = getActivity().getAssets().openFd(p.getCarpeta()+"/"+p.getNombre()+".m4a");
                         MediaPlayer mp = new MediaPlayer();
                         mp.setDataSource(ims.getFileDescriptor(),ims.getStartOffset(),ims.getLength());
@@ -210,12 +183,7 @@ public class ModoNinoActivity extends SuperSolapas {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
-
-
-
-                }
+            }
 
             });
 
@@ -227,23 +195,15 @@ public class ModoNinoActivity extends SuperSolapas {
         public InputStream getAsset(String ruta) {
             AssetManager assetManager = getResources().getAssets();
             InputStream inputStream = null;
-
             try {
                 inputStream = assetManager.open(ruta);
                 if (inputStream != null)
                     return inputStream;
             } catch (IOException e) {
                 e.printStackTrace();
-
             }
             return null;
         }
-
-
-
-
-
-
 
     }
 
@@ -259,10 +219,7 @@ public class ModoNinoActivity extends SuperSolapas {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position, child);
-                    //PlaceholderFragment.newInstance(position + 1);
+           return PlaceholderFragment.newInstance(position, child);
         }
 
         //cantidad de solapas
