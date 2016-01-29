@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class ModoNinoActivity extends SuperSolapas {
 
 
 
-       //RECUPERO PARAMETROS
-       child =  (Child) getIntent().getExtras().getSerializable("chico");
+        //RECUPERO PARAMETROS
+        child = (Child) getIntent().getExtras().getSerializable("chico");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,7 +54,7 @@ public class ModoNinoActivity extends SuperSolapas {
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), child);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -100,34 +101,34 @@ public class ModoNinoActivity extends SuperSolapas {
         private String[] imagenes;
         private List<Pictograma> pictogramasChico;
         private List<Pictograma> pictogramasCategoria;
-        private Child child;
+        private static Child child;
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {  }
 
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Child aChild) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             System.out.print(sectionNumber);
+            child = aChild;
             return fragment;
         }
 
 
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
 
             //CONTENIDO DEL FRAGMENTO
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
 
-            pictogramasChico = DBmanager.getPictogramasChild(1);//cambiar por id_chico
-            child=DBmanager.listChild().get(0);
-            List<String> categoriasHabilitadas=child.categoriasHabilitadas();
+            pictogramasChico = DBmanager.getPictogramasChild(child.getId());//cambiar por id_chico
+            child = DBmanager.listChild().get(0);
+            List<String> categoriasHabilitadas = child.categoriasHabilitadas();
             categoriasHabilitadas.add(child.getNombre());
             String c= categoriasHabilitadas.get(((int) getArguments().getInt(ARG_SECTION_NUMBER)));
             if(c.equals(child.getNombre())){
@@ -142,13 +143,24 @@ public class ModoNinoActivity extends SuperSolapas {
             //TAMANO PANTALLA
             DisplayMetrics dm = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-            int width=dm.widthPixels;
+            int width = dm.widthPixels;
 
             //ESPACIO DISPONIBLE PARA GRID
             gridView.setColumnWidth((width*75)/100);
 
             //TAMANO COLUMNAS DEL GRID
-            width=((  ((width*75)/100)  -48)/3);
+            //width=((  ((width*75)/100)  -48)/3);
+            if (child.getTamPictograma() == 3){
+                width=((  ((width*75)/100)  -48)/3);
+                gridView.setNumColumns(3);
+            } else if (child.getTamPictograma() == 4) {
+                width=((  ((width*75)/100)  -48)/4);
+                gridView.setNumColumns(4);
+            } else {
+                width=((  ((width*75)/100)  -48)/5);
+                gridView.setNumColumns(5);
+            }
+            
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
@@ -167,7 +179,7 @@ public class ModoNinoActivity extends SuperSolapas {
                 }
             });
 
-            im= (ImageView) rootView.findViewById(R.id.si);
+            im = (ImageView) rootView.findViewById(R.id.si);
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
 
@@ -240,15 +252,18 @@ public class ModoNinoActivity extends SuperSolapas {
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        Child child;
+
+        public SectionsPagerAdapter(FragmentManager fm, Child child) {
             super(fm);
+            this.child = child;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position);
+            return PlaceholderFragment.newInstance(position, child);
                     //PlaceholderFragment.newInstance(position + 1);
         }
 
