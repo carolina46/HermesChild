@@ -1,243 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#9eb7c9"
-    android:orientation="vertical"
-    tools:context="com.laboratorio.hermesperezmunoa.HermesActivity"
-    android:weightSum="1">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ALUMN@"
-        android:textSize="25dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:textStyle="bold"
-        android:id="@+id/textAlumno"/>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="#9eb7c9"
+        android:orientation="vertical"
+        tools:context="com.laboratorio.hermesperezmunoa.HermesActivity"
+        android:weightSum="1">
+
+
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Nombre"
-            android:id="@+id/textNombre"/>
+            android:text="ALUMN@"
+            android:textSize="25dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:textStyle="bold"
+            android:id="@+id/textAlumno"/>
 
-        <EditText
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editNombre" />
-    </LinearLayout>
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Nombre"
+                android:id="@+id/textNombre"/>
 
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Apellido"
-            android:id="@+id/textApellido" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editApellido" />
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Sexo"
-            android:id="@+id/textSexo"
-            android:paddingBottom="20dp"
-            android:paddingTop="10dp"/>
-
-        <RadioGroup
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/editNombre" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Apellido"
+                android:id="@+id/textApellido" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editApellido" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Sexo"
+                android:id="@+id/textSexo"
+                android:paddingBottom="20dp"
+                android:paddingTop="10dp"/>
+
+            <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Femenino"
+                        android:id="@+id/radioButtonF"
+                        android:checked="true"
+                        android:paddingRight="10dp" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masculino"
+                        android:id="@+id/radioButtonM"
+                        android:checked="false" />
+
+            </RadioGroup>
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#303F9F" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tamaño de los pictogramas"
+            android:id="@+id/textPictograma"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10dp">
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="10dp">
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Femenino"
-                    android:id="@+id/radioButtonF"
+                    android:text="Chico"
+                    android:id="@+id/radioButtonChico"
                     android:checked="true"
                     android:paddingRight="10dp" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Masculino"
-                    android:id="@+id/radioButtonM"
-                    android:checked="false" />
+                    android:text="Mediano"
+                    android:id="@+id/radioButtonMediano"
+                    android:checked="false"
+                    android:paddingRight="10dp" />
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grande"
+                    android:id="@+id/radioButtonGrande"
+                    android:checked="false" />
         </RadioGroup>
 
 
 
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#303F9F" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#303F9F" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Tamaño de los pictogramas"
-        android:id="@+id/textPictograma"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
-
-    <RadioGroup
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Habilitar categorías"
+            android:id="@+id/textCategoria"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <LinearLayout
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="10dp">
 
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chico"
-                android:id="@+id/radioButtonChico"
-                android:checked="true"
-                android:paddingRight="10dp" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mediano"
-                android:id="@+id/radioButtonMediano"
-                android:checked="false"
-                android:paddingRight="10dp" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Grande"
-                android:id="@+id/radioButtonGrande"
+                android:text="Pista"
+                android:id="@+id/checkBoxP"
                 android:checked="false" />
-    </RadioGroup>
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Establo"
+                android:id="@+id/checkBoxE"
+                android:checked="false" />
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Necesidades"
+                android:id="@+id/checkBoxN"
+                android:checked="false" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#303F9F" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Emociones"
+                android:id="@+id/checkBoxEm"
+                android:checked="false" />
+        </LinearLayout>
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#303F9F" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Habilitar categorías"
-        android:id="@+id/textCategoria"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
-
-        <CheckBox
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pista"
-            android:id="@+id/checkBoxP"
-            android:checked="false" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Establo"
-            android:id="@+id/checkBoxE"
-            android:checked="false" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Necesidades"
-            android:id="@+id/checkBoxN"
-            android:checked="false" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emociones"
-            android:id="@+id/checkBoxEm"
-            android:checked="false" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#303F9F" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="30dp">
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="30dp">
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:id="@+id/buttonAgregarA"
-            android:textStyle="bold"
-            android:background="#52689f"
-            android:textColor="#edebeb"
-            android:layout_marginRight="30dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:id="@+id/buttonAgregarA"
+                android:textStyle="bold"
+                android:background="#52689f"
+                android:textColor="#edebeb"
+                android:layout_marginRight="30dp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eliminar"
-            android:id="@+id/buttonEliminarA"
-            android:textStyle="bold"
-            android:background="#52689f"
-            android:textColor="#edebeb" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eliminar"
+                android:id="@+id/buttonEliminarA"
+                android:textStyle="bold"
+                android:background="#52689f"
+                android:textColor="#edebeb" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

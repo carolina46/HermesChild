@@ -160,7 +160,7 @@ public class ModoNinoActivity extends SuperSolapas {
                 width=((  ((width*75)/100)  -48)/5);
                 gridView.setNumColumns(5);
             }
-            
+
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
