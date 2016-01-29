@@ -41,6 +41,10 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         return position;
     }
 
+    public List<Pictograma> getElements(){
+        return this.listaIdImagenes;
+    }
+
 
 
     @Override
