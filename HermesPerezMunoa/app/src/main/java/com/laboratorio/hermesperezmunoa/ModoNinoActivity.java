@@ -1,6 +1,7 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -120,23 +122,14 @@ public class ModoNinoActivity extends SuperSolapas {
             View rootView = inflater.inflate(R.layout.fragment_modo_nino, container, false);
 
             //CONTENIDO DEL FRAGMENTO
-
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
-
-
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
 
-            pictogramasChico = DBmanager.getPictogramasChild(1);
-
+            pictogramasChico = DBmanager.getPictogramasChild(1);//cambiar por id_chico
             child=DBmanager.listChild().get(0);
-
             List<String> categoriasHabilitadas=child.categoriasHabilitadas();
             categoriasHabilitadas.add(child.getNombre());
-
             String c= categoriasHabilitadas.get(((int) getArguments().getInt(ARG_SECTION_NUMBER)));
-
-
-
             if(c.equals(child.getNombre())){
                 pictogramasCategoria = pictogramasChico;
             }
@@ -144,25 +137,6 @@ public class ModoNinoActivity extends SuperSolapas {
                 pictogramasCategoria  = DBmanager.getPictogramasCategoriaChico(c, 1);
             }
 
-/*
-
-            switch (child.categoriasHabilitadas().get((int) getArguments().getInt(ARG_SECTION_NUMBER))) {
-                case "pista":
-                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("pista", 1);
-                    break;
-                case "establo":
-                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("establo",1);
-                    break;
-                case "necesidades":
-                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("necesidades",1);
-                    break;
-                case "emociones":
-                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("emociones",1);
-                    break;
-                default:
-                    pictogramasCategoria = pictogramasChico;
-            }
-            */
 
 
             //TAMANO PANTALLA
@@ -170,12 +144,10 @@ public class ModoNinoActivity extends SuperSolapas {
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int width=dm.widthPixels;
 
-
             //ESPACIO DISPONIBLE PARA GRID
             gridView.setColumnWidth((width*75)/100);
 
             //TAMANO COLUMNAS DEL GRID
-
             width=((  ((width*75)/100)  -48)/3);
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
@@ -206,6 +178,35 @@ public class ModoNinoActivity extends SuperSolapas {
                     mp.start();
 
                 }
+            });
+
+
+
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v,
+                                        int position, long id) {
+
+                    Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
+
+                    try {
+                        AssetFileDescriptor ims = null;
+                        //ims = getActivity().getAssets().openFd(p.getCarpeta() + "/" + p.getNombre() + ".m4a");
+                        ims = getActivity().getAssets().openFd(p.getCarpeta()+"/"+p.getNombre()+".m4a");
+                        MediaPlayer mp = new MediaPlayer();
+                        mp.setDataSource(ims.getFileDescriptor(),ims.getStartOffset(),ims.getLength());
+                        mp.prepare();
+                        mp.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+
+
+
+                }
+
             });
 
             return rootView;
