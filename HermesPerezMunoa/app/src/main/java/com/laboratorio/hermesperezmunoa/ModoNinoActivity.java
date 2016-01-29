@@ -22,7 +22,6 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModoNinoActivity extends SuperSolapas {
@@ -97,7 +96,8 @@ public class ModoNinoActivity extends SuperSolapas {
         private int anchoColumna;
         private AdaptadorDePictogramas adaptador;
         private String[] imagenes;
-        private List<Pictograma> pictogramas;
+        private List<Pictograma> pictogramasChico;
+        private List<Pictograma> pictogramasCategoria;
         private Child child;
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -136,72 +136,26 @@ public class ModoNinoActivity extends SuperSolapas {
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
 
-
-            //List<String> categoriasHabilitadas = child.categoriasHabilitadas();
-            //categoriasHabilitadas.add(child.getNombre());
-
-            //List<String[]> pictogramaCategoria = new ArrayList<String[]>();
+            DataBaseManager DBmanager = new DataBaseManager(getActivity());
+            pictogramasChico = DBmanager.getPictogramasChild(1);
 
 
 
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0:
-
-                    imagenes=new String[]{
-                            "pista/casco.png",
-                            "pista/chapas.png",
-                            "pista/letras.png",
-                            "pista/cubos.png",
-                            "pista/maracas.png",
-                            "pista/palos.png",
-                            "pista/pato.png",
-                            "pista/pelota.png",
-                            "pista/riendas.png",
-                            "pista/burbujas.png",
-                            "pista/broches.png",
-                            "pista/aro.png",
-                            "pista/tarima.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("pista", 1);
                     break;
                 case 1:
-                    imagenes=new String[]{
-                            "establo/cepillo.png",
-                            "establo/limpieza.png",
-                            "establo/escarba.png",
-                            "establo/montura.png",
-                            "establo/matra.png",
-                            "establo/raqueta_dura.png",
-                            "establo/raqueta_blanda.png",
-                            "establo/pasto.png",
-                            "establo/zanahoria.png",
-                            "establo/caballo_b.png",
-                            "establo/caballo_m.png",
-                            "establo/caballo_n.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("establo",1);
                     break;
                 case 2:
-                    imagenes=new String[]{
-                            "necesidades/bano.png" ,
-                            "necesidades/sed.png" ,
-                            "necesidades/seed.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("necesidades",1);
                     break;
                 case 3:
-                   imagenes=new String[]{
-                           "emociones/dolorida.png",
-                           "emociones/dolorido.png",
-                           "emociones/cansada.png",
-                           "emociones/cansado.png",
-                           "emociones/triste.png",
-                           "emociones/tristee.png",
-                           "emociones/sorprendida.png",
-                           "emociones/sorprendido.png",
-                           "emociones/asustado.png",
-                           "emociones/asustada.png",
-                           "emociones/contenta.png",
-                           "emociones/contento.png",
-                           "emociones/enojada.png",
-                           "emociones/enojado.png"};
+                    pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("emociones",1);
                     break;
                 case 4:
-                    imagenes=new String[0];
+                    pictogramasCategoria = pictogramasChico;
             }
 
 
@@ -215,9 +169,9 @@ public class ModoNinoActivity extends SuperSolapas {
             gridView.setColumnWidth((width*75)/100);
 
             //TAMANO COLUMNAS DEL GRID
-            pictogramas=new ArrayList<Pictograma>();
+
             width=((  ((width*75)/100)  -48)/3);
-            adaptador = new AdaptadorDePictogramas(getActivity(), pictogramas,width);
+            adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
 

@@ -169,6 +169,23 @@ public class DataBaseManager {
         db.close();
     }
 
+    public List<Pictograma> getPictogramasCategoriaChico(String categoria, int id_nino) {
+        db = helper.getWritableDatabase();
+        Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta " +
+                "from pictogramaChico inner join pictograma on (pictogramaChico.id_pictograma = pictograma.id_pictograma) " +
+                "where id_chico="+Integer.toString(id_nino)+" and carpeta='"+categoria+"'", null);
+        List<Pictograma> pictogramasChico = new ArrayList<Pictograma>();
+        if (pictogramas.moveToFirst()) {
+            do {
+                pictogramasChico.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2)));
+            }while (pictogramas.moveToNext());
+        }
+
+        db.close();
+        pictogramas.close();
+        return pictogramasChico;
+    }
+
 
     public class DataBaseHelper extends SQLiteOpenHelper {
 
