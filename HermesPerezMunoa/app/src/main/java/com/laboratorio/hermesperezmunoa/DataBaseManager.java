@@ -206,6 +206,7 @@ public class DataBaseManager {
                     db.execSQL("create table pictograma (id_pictograma Integer primary key, nombre text, carpeta text)");
                     db.execSQL("create table pictogramaChico (id_pictogramaChico Integer primary key autoincrement, id_chico Integer, id_pictograma Integer)");
                     db.execSQL("create table configuracion ( id integer primary key, ip text, puerto text)");
+                    db.execSQL("create table notificacion (id_notificacion Integer primary key autoincrement, nombreChico text, contenidoPictograma text, categoriaPictograma text)");
 
 
                     //CARGA DEL UNICO REGISTRO DE LA TABLA CONFIGURACION
