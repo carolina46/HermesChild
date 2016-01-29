@@ -54,10 +54,10 @@ public class Child implements Serializable{
 
     public List<String> categoriasHabilitadas(){
         List<String> categoriasHabilitadas= new ArrayList<String>();
-        if(categorias[0]) categoriasHabilitadas.add("Pista");
-        if(categorias[1]) categoriasHabilitadas.add("Establo");
-        if(categorias[2]) categoriasHabilitadas.add("Necesidades");
-        if(categorias[3]) categoriasHabilitadas.add("Emociones");
+        if(categorias[0]) categoriasHabilitadas.add("pista");
+        if(categorias[1]) categoriasHabilitadas.add("establo");
+        if(categorias[2]) categoriasHabilitadas.add("necesidades");
+        if(categorias[3]) categoriasHabilitadas.add("emociones");
         return categoriasHabilitadas;
     }
 

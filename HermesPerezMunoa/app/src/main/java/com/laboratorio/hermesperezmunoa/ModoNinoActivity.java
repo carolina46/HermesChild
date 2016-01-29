@@ -99,22 +99,9 @@ public class ModoNinoActivity extends SuperSolapas {
         private List<Pictograma> pictogramasChico;
         private List<Pictograma> pictogramasCategoria;
         private Child child;
-
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {  }
-
-        //SONIDO BOTONES DE SI Y NO
-        public void presionoSi (View v) {
-            MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.si );
-            mp.start();
-        }
-
-        public void presionoNo (View v) {
-            MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.no );
-            mp.start();
-        }
-
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -136,27 +123,46 @@ public class ModoNinoActivity extends SuperSolapas {
 
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
 
+
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
+
             pictogramasChico = DBmanager.getPictogramasChild(1);
 
+            child=DBmanager.listChild().get(0);
+
+            List<String> categoriasHabilitadas=child.categoriasHabilitadas();
+            categoriasHabilitadas.add(child.getNombre());
+
+            String c= categoriasHabilitadas.get(((int) getArguments().getInt(ARG_SECTION_NUMBER)));
 
 
-            switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 0:
+
+            if(c.equals(child.getNombre())){
+                pictogramasCategoria = pictogramasChico;
+            }
+            else{
+                pictogramasCategoria  = DBmanager.getPictogramasCategoriaChico(c, 1);
+            }
+
+/*
+
+            switch (child.categoriasHabilitadas().get((int) getArguments().getInt(ARG_SECTION_NUMBER))) {
+                case "pista":
                     pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("pista", 1);
                     break;
-                case 1:
+                case "establo":
                     pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("establo",1);
                     break;
-                case 2:
+                case "necesidades":
                     pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("necesidades",1);
                     break;
-                case 3:
+                case "emociones":
                     pictogramasCategoria = DBmanager.getPictogramasCategoriaChico("emociones",1);
                     break;
-                case 4:
+                default:
                     pictogramasCategoria = pictogramasChico;
             }
+            */
 
 
             //TAMANO PANTALLA
@@ -180,9 +186,27 @@ public class ModoNinoActivity extends SuperSolapas {
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
 
+            im.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.no );
+                    mp.start();
+
+                }
+            });
+
             im= (ImageView) rootView.findViewById(R.id.si);
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
+
+            im.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    MediaPlayer mp = MediaPlayer.create(getActivity(),R.raw.si );
+                    mp.start();
+
+                }
+            });
 
             return rootView;
         }
