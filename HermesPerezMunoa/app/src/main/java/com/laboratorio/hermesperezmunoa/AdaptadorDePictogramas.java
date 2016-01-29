@@ -55,9 +55,6 @@ public class AdaptadorDePictogramas extends BaseAdapter {
             imageView.setPadding(2, 2, 2, 2);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
-            //((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
-
-
             Pictograma p= (Pictograma)getItem(position);
             if(p.isSelected())imageView.setBackgroundColor(Color.parseColor("#303F9F"));
 
@@ -72,8 +69,9 @@ public class AdaptadorDePictogramas extends BaseAdapter {
             // set image to ImageView
             imageView.setImageDrawable(d);
 
+            //((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
 
-            //imageView.setImageDrawable(_activity.getResources().getDrawable(this.listaIdImagenes[position]));
+
 
         } else {
             imageView = (ImageView) convertView;

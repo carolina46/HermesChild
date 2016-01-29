@@ -129,23 +129,21 @@ public class ModoNinoActivity extends SuperSolapas {
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int width = dm.widthPixels;
             //Determino espacio para el gridView
-            gridView.setColumnWidth((width*75)/100);
-            //Tamano columnas del gridView
-            if (child.getTamPictograma() == 3){
-                width=((  ((width*75)/100)  -48)/3);
-                gridView.setNumColumns(3);
-            } else if (child.getTamPictograma() == 4) {
-                width=((  ((width*75)/100)  -48)/4);
-                gridView.setNumColumns(4);
-            } else {
-                width=((  ((width*75)/100)  -48)/5);
-                gridView.setNumColumns(5);
+            int espacioGridView=0;
+            int margenColumnas=0;
+            switch (child.getTamPictograma()){
+                case 3: espacioGridView= (width*75)/100; margenColumnas=12; break;
+                case 4: espacioGridView= (width*80)/100; margenColumnas=20; break;
+                case 5: espacioGridView= (width*85)/100; margenColumnas=28;  break;
             }
-
+            gridView.setColumnWidth(espacioGridView);
+            gridView.setNumColumns(child.getTamPictograma());
+            width=((espacioGridView- (margenColumnas* child.getTamPictograma()))/child.getTamPictograma());
+            //Adaptador
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
-            //TAMAÑO ADAPTATIVO DEL SI Y NO
+            //Tamano imagenes si y no
             ImageView im = (ImageView) rootView.findViewById(R.id.no);
             im.getLayoutParams().height=width;
             im.getLayoutParams().width=width;
