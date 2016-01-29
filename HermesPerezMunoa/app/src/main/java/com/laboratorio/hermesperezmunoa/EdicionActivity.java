@@ -168,8 +168,6 @@ public class EdicionActivity extends SuperSolapas {
                             int pictograma = ((Pictograma) gridView.getAdapter().getItem(position)).getId();
                             DataBaseManager DBmanager = new DataBaseManager(getActivity());
                             DBmanager.removePictogramaChico(pictograma, 1);
-
-
                             return true;
 
                         }
@@ -182,17 +180,15 @@ public class EdicionActivity extends SuperSolapas {
                     public void onItemClick(AdapterView<?> parent, View v,
                                             int position, long id) {
                         ImageView tv = (ImageView) gridView.getChildAt(position);
-
-                        if(false){//saber que concha de color tiene de fondo!!!!
+                        Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
+                        DataBaseManager DBmanager = new DataBaseManager(getActivity());
+                        if(p.isSelected()){
                             tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
-                            //Baja bd
-
+                            DBmanager.removePictogramaChico(p.getId(), 1);
                         }
                         else{
                             tv.setBackgroundColor(Color.parseColor("#303F9F"));
-                            int pictograma = ((Pictograma) gridView.getAdapter().getItem(position)).getId();
-                            DataBaseManager DBmanager = new DataBaseManager(getActivity());
-                            DBmanager.addPictogramaChico(pictograma, 1);
+                            DBmanager.addPictogramaChico(p.getId(), 1);
 
 
 
