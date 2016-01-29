@@ -82,10 +82,9 @@ public class AjustesActivity extends AppCompatActivity {
                 if(origen.equals("modoNino")){
                     DataBaseManager DBmanager = new DataBaseManager(AjustesActivity.this);
                     DBmanager.deleteChild(child.getId());
+                    DBmanager.deleteChildPictogramas(1);
                     Intent intent = new Intent(AjustesActivity.this, HermesActivity.class);
                     startActivity(intent);
-
-                    ///Eliminar pictogramas asociados
                 }
 
 

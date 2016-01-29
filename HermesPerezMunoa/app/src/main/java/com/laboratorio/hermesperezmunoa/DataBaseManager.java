@@ -186,6 +186,12 @@ public class DataBaseManager {
         return pictogramasChico;
     }
 
+    public void deleteChildPictogramas(int id) {
+        db = helper.getWritableDatabase();
+        int cant= db.delete("pictogramaChico", "id_chico="+Integer.toString(id) , null);
+        db.close();
+    }
+
 
     public class DataBaseHelper extends SQLiteOpenHelper {
 
