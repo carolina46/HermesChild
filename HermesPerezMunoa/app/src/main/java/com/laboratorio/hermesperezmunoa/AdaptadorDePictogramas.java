@@ -2,15 +2,12 @@ package com.laboratorio.hermesperezmunoa;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class AdaptadorDePictogramas extends BaseAdapter {
@@ -58,6 +55,7 @@ public class AdaptadorDePictogramas extends BaseAdapter {
             Pictograma p= (Pictograma)getItem(position);
             if(p.isSelected())imageView.setBackgroundColor(Color.parseColor("#303F9F"));
 
+            /*
             InputStream ims = null;
             try {
                ims = _activity.getAssets().open(p.getCarpeta()+"/"+p.getNombre()+".png");
@@ -69,7 +67,8 @@ public class AdaptadorDePictogramas extends BaseAdapter {
             // set image to ImageView
             imageView.setImageDrawable(d);
 
-            //((SuperSolapas) _activity).loadBitmap(this.listaIdImagenes[position], imageView);
+*/
+            ((SuperSolapas) _activity).loadBitmap(p.getCarpeta()+"/"+p.getNombre()+".png", imageView, _activity);
 
 
 
