@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +204,27 @@ public class DataBaseManager {
 
     }
 
+    public  List<Notificacion>  getNotificationsForChild(String childName) {
+        db = helper.getWritableDatabase();
+        Cursor dbQuery = db.rawQuery("select * from notificacion where nombreChico='"+childName+"'", null);
+        List<Notificacion> notificaciones = new ArrayList<Notificacion>();
+
+        if (dbQuery.moveToFirst()) {
+            do {
+                notificaciones.add(new Notificacion(dbQuery.getInt(0), dbQuery.getString(1), dbQuery.getString(2), dbQuery.getString(3)));
+            }while (dbQuery.moveToNext());
+        }
+
+        db.close();
+        dbQuery.close();
+        return notificaciones;
+    }
+
+    public void deleteChildNotifications(String childName) {
+        db = helper.getWritableDatabase();
+        int cant = db.delete("notificacion", "nombreChico='"+childName+"'" , null);
+        db.close();
+    }
 
     public class DataBaseHelper extends SQLiteOpenHelper {
 

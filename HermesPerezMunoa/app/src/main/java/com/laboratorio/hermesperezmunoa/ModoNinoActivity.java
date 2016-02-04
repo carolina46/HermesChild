@@ -134,19 +134,19 @@ public class ModoNinoActivity extends SuperSolapas {
             switch (child.getTamPictograma()){
                 case 3: espacioGridView= (width*75)/100; margenColumnas=12; break;
                 case 4: espacioGridView= (width*80)/100; margenColumnas=20; break;
-                case 5: espacioGridView= (width*85)/100; margenColumnas=28;  break;
+                case 5: espacioGridView= (width*85)/100; margenColumnas=28; break;
             }
             gridView.setColumnWidth(espacioGridView);
             gridView.setNumColumns(child.getTamPictograma());
-            width=((espacioGridView- (margenColumnas* child.getTamPictograma()))/child.getTamPictograma());
+            width = ((espacioGridView - (margenColumnas* child.getTamPictograma()))/child.getTamPictograma());
             //Adaptador
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
             //Tamano imagenes si y no
             ImageView im = (ImageView) rootView.findViewById(R.id.no);
-            im.getLayoutParams().height=width;
-            im.getLayoutParams().width=width;
+            im.getLayoutParams().height = width;
+            im.getLayoutParams().width = width;
 
             im.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -156,8 +156,8 @@ public class ModoNinoActivity extends SuperSolapas {
             });
 
             im = (ImageView) rootView.findViewById(R.id.si);
-            im.getLayoutParams().height=width;
-            im.getLayoutParams().width=width;
+            im.getLayoutParams().height = width;
+            im.getLayoutParams().width = width;
 
             im.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -182,9 +182,15 @@ public class ModoNinoActivity extends SuperSolapas {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     //Notificacion
+                    String nombreNino = child.getNombre() + " " + child.getApellido();
+
                     DataBaseManager dBmanager = new DataBaseManager(getActivity());
-                    dBmanager.addNotificacion(child.getNombre() + " " + child.getApellido(), p.getNombre(),p.getCarpeta());
+                    dBmanager.addNotificacion(nombreNino, p.getNombre(),p.getCarpeta());
+
+                    EnvioNotificaciones enviador = new EnvioNotificaciones(getActivity());
+                    enviador.execute(nombreNino);
             }
 
             });
