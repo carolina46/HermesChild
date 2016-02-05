@@ -54,7 +54,6 @@ public class ModoNinoActivity extends SuperSolapas {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_modo_nino, menu);
