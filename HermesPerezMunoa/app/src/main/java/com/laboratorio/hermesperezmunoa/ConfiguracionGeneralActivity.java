@@ -56,8 +56,9 @@ public class ConfiguracionGeneralActivity extends AppCompatActivity {
                 else {
                     DataBaseManager DBmanager = new DataBaseManager(ConfiguracionGeneralActivity.this);
                     DBmanager.setConfiguration(aux);
-                    Toast mensaje = Toast.makeText(getApplicationContext(), "Se guardo la nueva configuración", Toast.LENGTH_SHORT);
-                    mensaje.show();
+                    Intent intent = new Intent(ConfiguracionGeneralActivity.this, HermesActivity.class);
+                    startActivity(intent);
+
                 }
 
             }

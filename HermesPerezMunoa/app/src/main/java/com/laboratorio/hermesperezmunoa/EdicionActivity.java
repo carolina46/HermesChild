@@ -166,10 +166,12 @@ public class EdicionActivity extends SuperSolapas {
                         if(p.isSelected()){
                             tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
                             DBmanager.removePictogramaChico(p.getId(), child.getId());
+                            p.setSelected(false);
                         }
                         else{
                             tv.setBackgroundColor(Color.parseColor("#303F9F"));
                             DBmanager.addPictogramaChico(p.getId(),  child.getId());
+                            p.setSelected(true);
                         }
                 }
 

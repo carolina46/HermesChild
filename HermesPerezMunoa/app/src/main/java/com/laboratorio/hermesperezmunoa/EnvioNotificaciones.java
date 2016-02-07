@@ -85,7 +85,7 @@ public class EnvioNotificaciones extends AsyncTask<String, Void, Void> {
             json.put("pictogram", notificacion.getContenidoPictograma());
             json.put("category",  notificacion.getCategoriaPictograma());
             json.put("sent",      Calendar.getInstance().getTimeInMillis());
-            json.put("context", "un contexto");
+            json.put("context", "CEDICA");
 
             jArray.add(json);
         }
