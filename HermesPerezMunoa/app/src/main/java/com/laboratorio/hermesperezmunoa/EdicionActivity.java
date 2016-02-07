@@ -130,11 +130,12 @@ public class EdicionActivity extends SuperSolapas {
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             width=dm.widthPixels;
             //Tamano del gridview
-            gridView.setColumnWidth(width);
+            gridView.setColumnWidth(width-50);
             //Tamano columnas gridview
-            width=(( width-90)/4);
+            width=(( width-150)/4);
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
+
 
 
             //Listener gridview
