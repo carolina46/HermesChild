@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +124,7 @@ public class DataBaseManager {
         db = helper.getWritableDatabase();
         Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta " +
                                     "from pictogramaChico inner join pictograma on (pictogramaChico.id_pictograma = pictograma.id_pictograma) " +
-                                    "where id_chico="+Integer.toString(i), null);
+                                    "where id_chico="+Integer.toString(i)+ " order by carpeta", null);
         List<Pictograma> pictogramasChico = new ArrayList<Pictograma>();
         if (pictogramas.moveToFirst()) {
             do {
