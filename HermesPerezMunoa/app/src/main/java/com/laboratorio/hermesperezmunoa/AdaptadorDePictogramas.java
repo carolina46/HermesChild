@@ -45,14 +45,8 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         return this.listaIdImagenes;
     }
 
-    public void deleteById(int id){
-        for(int i= 0; i<listaIdImagenes.size();i++){
-            if(listaIdImagenes.get(i).getId()==id){
-                listaIdImagenes.remove(i);
-                break;
-            }
-
-        }
+    public void deleteElement(int id){
+        this.listaIdImagenes.remove(id);
     }
 
 

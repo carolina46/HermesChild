@@ -1,7 +1,6 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -183,23 +182,21 @@ public class EdicionActivity extends SuperSolapas {
                                             int position, long id) {
                         ImageView tv = (ImageView) gridView.getChildAt(position);
                         Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
-                        if(tv == null) {
-                            tv = new ImageView(getActivity());
-                        }
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
                         if(p.isSelected()){
-                            tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
+                           // tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
                             DBmanager.removePictogramaChico(p.getId(), child.getId());
                             p.setSelected(false);
-                            refreshFragment("nino");
                         }
                         else{
-                            tv.setBackgroundColor(Color.parseColor("#303F9F"));
+                           // tv.setBackgroundColor(Color.parseColor("#303F9F"));
                             DBmanager.addPictogramaChico(p.getId(), child.getId());
                             p.setSelected(true);
-                            refreshFragment("nino");
-
                         }
+                        refreshFragment("nino");
+                        List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
+                        adaptador = new AdaptadorDePictogramas(getActivity(), list,width);
+                        gridView.setAdapter(adaptador);
                     }
 
                 });
