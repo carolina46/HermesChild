@@ -32,8 +32,7 @@ class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Bitmap bitmap = BitmapFactory.decodeStream(ims);
-        return bitmap;
+        return BitmapFactory.decodeStream(ims);
     }
 
     @Override

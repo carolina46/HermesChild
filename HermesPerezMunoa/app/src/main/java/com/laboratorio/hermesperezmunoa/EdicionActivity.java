@@ -19,13 +19,22 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EdicionActivity extends SuperSolapas {
 
     private Child child;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+    private static PlaceholderFragment fragmentoNino= null;
+    private static PlaceholderFragment fragmentoPista = null;
+    private static PlaceholderFragment fragmentoEstablo = null;
+    private static PlaceholderFragment fragmentoNecesidades = null;
+    private static PlaceholderFragment fragmentoEmociones = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +115,20 @@ public class EdicionActivity extends SuperSolapas {
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
             pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 0: pictogramasCategoria = DBmanager.getPictogramasCategoria("pista"); break;
-                case 1: pictogramasCategoria = DBmanager.getPictogramasCategoria("establo"); break;
-                case 2: pictogramasCategoria = DBmanager.getPictogramasCategoria("necesidades"); break;
-                case 3: pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones"); break;
+                case 0: pictogramasCategoria = DBmanager.getPictogramasCategoria("pista");
+                    fragmentoPista=this;
+                    break;
+                case 1: pictogramasCategoria = DBmanager.getPictogramasCategoria("establo");
+                    fragmentoEstablo=this;
+                    break;
+                case 2: pictogramasCategoria = DBmanager.getPictogramasCategoria("necesidades");
+                    fragmentoNecesidades=this;
+                    break;
+                case 3: pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones");
+                    fragmentoEmociones=this;
+                    break;
                 case 4: pictogramasCategoria = pictogramasChico;
+                    fragmentoNino=this;
             }
 
             //Pinto pictogramas seleccionados
@@ -140,22 +158,24 @@ public class EdicionActivity extends SuperSolapas {
 
             //Listener gridview
             if((int) getArguments().getInt(ARG_SECTION_NUMBER)==4){ //Solapa nino
-                    gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                        @Override
-                        public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-                            ImageView tv = (ImageView) gridView.getChildAt(position);
-                            int pictograma = ((Pictograma) gridView.getAdapter().getItem(position)).getId();
-                            DataBaseManager DBmanager = new DataBaseManager(getActivity());
-                            DBmanager.removePictogramaChico(pictograma,  child.getId());
-                            //Elimino elemento del gridView
-                            List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
-                            list.remove(position);
-                            adaptador = new AdaptadorDePictogramas(getActivity(), list,width);
-                            gridView.setAdapter(adaptador);
-                            return true;
+                gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                        ImageView tv = (ImageView) gridView.getChildAt(position);
+                        Pictograma pictograma = ((Pictograma) gridView.getAdapter().getItem(position));
 
-                        }
-                    });
+                        DataBaseManager DBmanager = new DataBaseManager(getActivity());
+                        DBmanager.removePictogramaChico(pictograma.getId(),  child.getId());
+                        //Elimino elemento del gridView
+                        List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
+                        list.remove(position);
+                        adaptador = new AdaptadorDePictogramas(getActivity(), list,width);
+                        gridView.setAdapter(adaptador);
+                        refreshFragment(pictograma.getCarpeta());
+                        return true;
+
+                    }
+                });
             }
             else{//Solapas categorias
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -163,24 +183,88 @@ public class EdicionActivity extends SuperSolapas {
                                             int position, long id) {
                         ImageView tv = (ImageView) gridView.getChildAt(position);
                         Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
+                        if(tv == null) {
+                            tv = new ImageView(getActivity());
+                        }
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
                         if(p.isSelected()){
                             tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
                             DBmanager.removePictogramaChico(p.getId(), child.getId());
                             p.setSelected(false);
+                            refreshFragment("nino");
                         }
                         else{
                             tv.setBackgroundColor(Color.parseColor("#303F9F"));
-                            DBmanager.addPictogramaChico(p.getId(),  child.getId());
+                            DBmanager.addPictogramaChico(p.getId(), child.getId());
                             p.setSelected(true);
+                            refreshFragment("nino");
+
                         }
-                }
+                    }
 
                 });
             }
             return rootView;
         }
 
+        private void refreshFragment(String carpeta) {
+            Map<String,Integer > posCarpetas = new HashMap<String,Integer >();
+            posCarpetas.put("pista",0);
+            posCarpetas.put("estabablo",1);
+            posCarpetas.put("necesidades",2);
+            posCarpetas.put("emociones",3);
+            posCarpetas.put("nino",4);
+
+            android.support.v4.app.FragmentTransaction ft;
+            switch (posCarpetas.get(carpeta)) {
+                case 0:
+                    if(fragmentoPista!=null){
+                        ft= getFragmentManager().beginTransaction();
+                        ft.detach(fragmentoPista);
+                        ft.attach(fragmentoPista);
+                        ft.commit();
+                    }
+                    break;
+                case 1:
+                    if(fragmentoEstablo!=null){
+                        ft= getFragmentManager().beginTransaction();
+                        ft.detach(fragmentoEstablo);
+                        ft.attach(fragmentoEstablo);
+                        ft.commit();
+                    }
+                    break;
+                case 2:
+                    if(fragmentoNecesidades!=null){
+                        ft= getFragmentManager().beginTransaction();
+                        ft.detach(fragmentoNecesidades);
+                        ft.attach(fragmentoNecesidades);
+                        ft.commit();
+                    }
+
+                    break;
+                case 3:
+                    if(fragmentoEmociones!=null){
+                        ft= getFragmentManager().beginTransaction();
+                        ft.detach(fragmentoEmociones);
+                        ft.attach(fragmentoEmociones);
+                        ft.commit();
+                    }
+                    break;
+                case 4:
+                    if(fragmentoNino!=null){
+                        ft= getFragmentManager().beginTransaction();
+                        ft.detach(fragmentoNino);
+                        ft.attach(fragmentoNino);
+                        ft.commit();
+                    }
+
+
+
+
+            }
+
+
+        }
 
 
     }
@@ -197,7 +281,7 @@ public class EdicionActivity extends SuperSolapas {
 
         @Override
         public Fragment getItem(int position) {
-          return PlaceholderFragment.newInstance(position, child);
+            return PlaceholderFragment.newInstance(position, child);
         }
 
         @Override

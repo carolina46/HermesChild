@@ -14,6 +14,7 @@
         android:padding="10dp"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
+        android:scrollbars="vertical"
         android:gravity="center"
         android:layout_weight="3"
         android:id="@+id/pictogrmas"
