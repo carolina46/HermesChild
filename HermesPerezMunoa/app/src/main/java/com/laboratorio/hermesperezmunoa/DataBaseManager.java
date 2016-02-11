@@ -203,9 +203,9 @@ public class DataBaseManager {
 
     }
 
-    public  List<Notificacion>  getNotificationsForChild(String childName) {
+    public  List<Notificacion> getNotifications() {
         db = helper.getWritableDatabase();
-        Cursor dbQuery = db.rawQuery("select * from notificacion where nombreChico='"+childName+"'", null);
+        Cursor dbQuery = db.rawQuery("select * from notificacion", null);
         List<Notificacion> notificaciones = new ArrayList<Notificacion>();
 
         if (dbQuery.moveToFirst()) {
@@ -219,9 +219,11 @@ public class DataBaseManager {
         return notificaciones;
     }
 
-    public void deleteChildNotifications(String childName) {
+    public void deleteNotifications(List<Notificacion> notificationList) {
         db = helper.getWritableDatabase();
-        int cant = db.delete("notificacion", "nombreChico='"+childName+"'" , null);
+        for (Notificacion notification :notificationList) {
+            db.delete("notificacion", "id_notificacion='"+ notification.getId() +"'" , null);
+        }
         db.close();
     }
 

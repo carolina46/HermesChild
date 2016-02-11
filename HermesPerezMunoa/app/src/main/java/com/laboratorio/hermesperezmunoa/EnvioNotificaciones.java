@@ -28,7 +28,7 @@ public class EnvioNotificaciones extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... params) {
         // Traer las notificaciones no enviadas de la base de datos
         DataBaseManager dbManager = new DataBaseManager(aContext);
-        List<Notificacion> notificaciones = dbManager.getNotificationsForChild(params[0]);
+        List<Notificacion> notificaciones = dbManager.getNotifications();
 
         // Convertir las notificaciones a JSON
         JSONArray jsonNotificaciones = generarJson(notificaciones);
@@ -40,7 +40,7 @@ public class EnvioNotificaciones extends AsyncTask<String, Void, Void> {
         // Verificar que devuelve OK
         if(envioExitoso){
             // Si devuelve OK, borrar esas notificaciones de la BD
-            dbManager.deleteChildNotifications(params[0]);
+            dbManager.deleteNotifications(notificaciones);
         }
 
         return null;
@@ -48,8 +48,8 @@ public class EnvioNotificaciones extends AsyncTask<String, Void, Void> {
 
     private boolean enviarNotificaciones(String json, String ip, String puerto){
         try {
-            //String url = "http://"+ip+":"+puerto+"/get";
-            String url = "http://192.168.0.6:8765/get";
+            String url = "http://"+ip+":"+puerto+"/get";
+            //String url = "http://192.168.0.6:8765/get";
             URL obj = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
             conn.setReadTimeout(5000);
