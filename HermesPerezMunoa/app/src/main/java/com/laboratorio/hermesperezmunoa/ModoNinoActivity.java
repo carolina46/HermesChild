@@ -40,7 +40,10 @@ public class ModoNinoActivity extends SuperSolapas {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_nino);
        //Parametros
-        child = (Child) getIntent().getExtras().getSerializable("chico");
+
+        child=(new DataBaseManager(this)).getChildSelected();
+
+        //child = (Child) getIntent().getExtras().getSerializable("chico");
         //Titulo menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("HERMES  " + (child.getNombre() + " " + child.getApellido()).toUpperCase());
@@ -115,6 +118,9 @@ public class ModoNinoActivity extends SuperSolapas {
             //Contenido
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas);
             final DataBaseManager DBmanager = new DataBaseManager(getActivity());
+
+
+            child=(new DataBaseManager(getContext())).getChildSelected();
             pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             List<String> categoriasHabilitadas = child.categoriasHabilitadas();
             categoriasHabilitadas.add(child.getNombre());

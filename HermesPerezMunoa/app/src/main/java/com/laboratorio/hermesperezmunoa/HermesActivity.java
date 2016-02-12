@@ -36,8 +36,18 @@ public class HermesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(HermesActivity.this, ModoNinoActivity.class);
+
+
+                DataBaseManager DBmanager = new DataBaseManager(getApplicationContext());
+
+
                 Child c = (Child) adapterView.getAdapter().getItem(position);
-                intent.putExtra("chico", c);
+
+                DBmanager.addChildSelected(c.getId());
+
+
+
+               // intent.putExtra("chico", c);
                 startActivity(intent);
             }
         });

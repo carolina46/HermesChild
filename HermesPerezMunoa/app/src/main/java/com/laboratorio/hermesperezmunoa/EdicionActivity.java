@@ -1,6 +1,7 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 public class EdicionActivity extends SuperSolapas {
 
-    private Child child;
+    private static Child child;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -42,7 +43,9 @@ public class EdicionActivity extends SuperSolapas {
 
 
         //RECUPERO PARAMETROS
-        child =  (Child) getIntent().getExtras().getSerializable("chico");
+
+        child=(new DataBaseManager(this)).getChildSelected();
+        //child =  (Child) getIntent().getExtras().getSerializable("chico");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,6 +115,9 @@ public class EdicionActivity extends SuperSolapas {
             //Contenido del fragmento
             gridView = (GridView) rootView.findViewById(R.id.pictogrmas_edicion);
             DataBaseManager DBmanager = new DataBaseManager(getActivity());
+
+            child=(new DataBaseManager(getContext())).getChildSelected();
+
             pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 0: pictogramasCategoria = DBmanager.getPictogramasCategoria("pista");
@@ -184,19 +190,23 @@ public class EdicionActivity extends SuperSolapas {
                         Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
                         if(p.isSelected()){
-                           // tv.setBackgroundColor(Color.parseColor("#9eb7c9"));
+                            if(tv!=null){tv.setBackgroundColor(Color.parseColor("#9eb7c9"));}
                             DBmanager.removePictogramaChico(p.getId(), child.getId());
                             p.setSelected(false);
                         }
                         else{
-                           // tv.setBackgroundColor(Color.parseColor("#303F9F"));
+                            if(tv!=null){tv.setBackgroundColor(Color.parseColor("#303F9F"));}
                             DBmanager.addPictogramaChico(p.getId(), child.getId());
                             p.setSelected(true);
                         }
+
+                        if(tv==null) {
+                            List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
+                            adaptador = new AdaptadorDePictogramas(getActivity(), list, width);
+                            gridView.setAdapter(adaptador);
+                        }
                         refreshFragment("nino");
-                        List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
-                        adaptador = new AdaptadorDePictogramas(getActivity(), list,width);
-                        gridView.setAdapter(adaptador);
+
                     }
 
                 });

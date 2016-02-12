@@ -227,6 +227,34 @@ public class DataBaseManager {
         db.close();
     }
 
+    public void addChildSelected(int id) {
+        db = helper.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        registro.put("id",id);
+        db.update("chicoSeleccionado", registro, "id_chicoSeleccionado=" + 1, null);
+        db.close();
+    }
+
+    public Child getChildSelected(){
+        Child c= null;
+        db = helper.getWritableDatabase();
+        Cursor dbQuery = db.rawQuery("select * from chicoSeleccionado", null);
+        if (dbQuery.moveToFirst()) {
+            Cursor chicos = db.rawQuery("select * from chico where id_chico="+ dbQuery.getInt(0), null);
+            if(chicos.moveToFirst()){
+                boolean[] categorias={chicos.getInt(5)==1,chicos.getInt(6)==1,chicos.getInt(7)==1,chicos.getInt(8)==1};
+                c=new Child(chicos.getInt(0), chicos.getString(1), chicos.getString(2), chicos.getInt(3) == 0 /*sexo, 0=F*/, chicos.getInt(4),categorias);
+            }
+
+
+        }
+
+        db.close();
+        dbQuery.close();
+        return c;
+
+    }
+
     public class DataBaseHelper extends SQLiteOpenHelper {
 
                 private static final String DB_NAME = "comunicadorChild";
@@ -241,7 +269,10 @@ public class DataBaseManager {
                     db.execSQL("create table pictogramaChico (id_pictogramaChico Integer primary key autoincrement, id_chico Integer, id_pictograma Integer)");
                     db.execSQL("create table configuracion ( id integer primary key, ip text, puerto text)");
                     db.execSQL("create table notificacion (id_notificacion Integer primary key autoincrement, nombreChico text, contenidoPictograma text, categoriaPictograma text)");
+                    db.execSQL("create table chicoSeleccionado (id_chicoSeleccionado Integer primary key autoincrement, id int)");
 
+                    //Reservo lugar para child seleccionado
+                    db.execSQL("insert into chicoSeleccionado (id_chicoSeleccionado, id) values (1, 0)");
 
                     //CARGA DEL UNICO REGISTRO DE LA TABLA CONFIGURACION
                     db.execSQL("insert into configuracion (id, ip, puerto) values (1, '192.56.100.69', '7065')");
