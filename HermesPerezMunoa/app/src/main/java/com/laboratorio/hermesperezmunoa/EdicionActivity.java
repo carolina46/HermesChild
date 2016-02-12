@@ -155,7 +155,7 @@ public class EdicionActivity extends SuperSolapas {
             //Tamano del gridview
             gridView.setColumnWidth(width-50);
             //Tamano columnas gridview
-            width=(( width-150)/4);
+            width=(( width-200)/5);
             adaptador = new AdaptadorDePictogramas(getActivity(), pictogramasCategoria,width);
             gridView.setAdapter(adaptador);
 
@@ -171,6 +171,7 @@ public class EdicionActivity extends SuperSolapas {
 
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
                         DBmanager.removePictogramaChico(pictograma.getId(),  child.getId());
+                        pictograma.setSelected(false);
                         //Elimino elemento del gridView
                         List<Pictograma> list = ((AdaptadorDePictogramas) gridView.getAdapter()).getElements();
                         list.remove(position);
@@ -217,7 +218,7 @@ public class EdicionActivity extends SuperSolapas {
         private void refreshFragment(String carpeta) {
             Map<String,Integer > posCarpetas = new HashMap<String,Integer >();
             posCarpetas.put("pista",0);
-            posCarpetas.put("estabablo",1);
+            posCarpetas.put("establo",1);
             posCarpetas.put("necesidades",2);
             posCarpetas.put("emociones",3);
             posCarpetas.put("nino",4);
