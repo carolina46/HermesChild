@@ -1,12 +1,10 @@
 package com.laboratorio.hermesperezmunoa;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -14,7 +12,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Carolina on 16/12/2015.
  */
-class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+class BitmapWorkerTask extends AsyncTask<String, Void, Drawable> {
     private final WeakReference<ImageView> imageViewReference;
     private Activity res;
 
@@ -25,22 +23,25 @@ class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 
 
     @Override
-    protected Bitmap doInBackground(String... params) {
+    protected Drawable doInBackground(String... params) {
         InputStream ims = null;
         try {
-            ims = new BufferedInputStream(res.getAssets().open(params[0]));
+            ims =res.getAssets().open(params[0]);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return BitmapFactory.decodeStream(ims);
+
+      return Drawable.createFromStream(ims, null);
+
+
     }
 
     @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        if (imageViewReference != null && bitmap != null) {
+    protected void onPostExecute(Drawable d) {
+        if (imageViewReference != null && d != null) {
             final ImageView imageView = imageViewReference.get();
             if (imageView != null) {
-                imageView.setImageBitmap(bitmap);
+                imageView.setImageDrawable(d);
             }
         }
     }

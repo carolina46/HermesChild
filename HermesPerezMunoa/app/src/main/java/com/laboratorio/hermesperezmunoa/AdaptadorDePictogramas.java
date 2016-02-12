@@ -72,8 +72,8 @@ public class AdaptadorDePictogramas extends BaseAdapter {
 
 
 
-        /*
 
+/*
         InputStream ims = null;
         try {
             ims = _activity.getAssets().open(p.getCarpeta()+"/"+p.getNombre()+".png");
@@ -84,9 +84,8 @@ public class AdaptadorDePictogramas extends BaseAdapter {
         Drawable d = Drawable.createFromStream(ims, null);
         // set image to ImageView
         imageView.setImageDrawable(d);
-
 */
-        ((SuperSolapas) _activity).loadBitmap(p.getCarpeta()+"/"+p.getNombre()+".png", imageView, _activity);
+       ((SuperSolapas) _activity).loadBitmap(p.getCarpeta()+"/"+p.getNombre()+".png", imageView, _activity);
 
 
 
