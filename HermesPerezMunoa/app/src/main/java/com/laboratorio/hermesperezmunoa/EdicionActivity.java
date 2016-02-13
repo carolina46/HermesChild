@@ -29,11 +29,11 @@ public class EdicionActivity extends SuperSolapas {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
-    private static PlaceholderFragment fragmentoNino= null;
-    private static PlaceholderFragment fragmentoPista = null;
-    private static PlaceholderFragment fragmentoEstablo = null;
-    private static PlaceholderFragment fragmentoNecesidades = null;
-    private static PlaceholderFragment fragmentoEmociones = null;
+    private static GridView fragmentoNino= null;
+    private static GridView fragmentoPista = null;
+    private static GridView fragmentoEstablo = null;
+    private static GridView fragmentoNecesidades = null;
+    private static GridView fragmentoEmociones = null;
 
 
     @Override
@@ -74,6 +74,7 @@ public class EdicionActivity extends SuperSolapas {
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(EdicionActivity.this, ModoNinoActivity.class);
             intent.putExtra("chico", child);
+            this.finish();
             startActivity(intent);
         }
         return true;
@@ -120,20 +121,11 @@ public class EdicionActivity extends SuperSolapas {
 
             pictogramasChico = DBmanager.getPictogramasChild(child.getId());
             switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 0: pictogramasCategoria = DBmanager.getPictogramasCategoria("pista");
-                    fragmentoPista=this;
-                    break;
-                case 1: pictogramasCategoria = DBmanager.getPictogramasCategoria("establo");
-                    fragmentoEstablo=this;
-                    break;
-                case 2: pictogramasCategoria = DBmanager.getPictogramasCategoria("necesidades");
-                    fragmentoNecesidades=this;
-                    break;
-                case 3: pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones");
-                    fragmentoEmociones=this;
-                    break;
+                case 0: pictogramasCategoria = DBmanager.getPictogramasCategoria("pista");break;
+                case 1: pictogramasCategoria = DBmanager.getPictogramasCategoria("establo");break;
+                case 2: pictogramasCategoria = DBmanager.getPictogramasCategoria("necesidades");break;
+                case 3: pictogramasCategoria = DBmanager.getPictogramasCategoria("emociones");break;
                 case 4: pictogramasCategoria = pictogramasChico;
-                    fragmentoNino=this;
             }
 
             //Pinto pictogramas seleccionados
@@ -161,6 +153,16 @@ public class EdicionActivity extends SuperSolapas {
 
 
 
+            //GuardoAdaptadores
+            switch ((int) getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 0: fragmentoPista=gridView;break;
+                case 1: fragmentoEstablo=gridView;break;
+                case 2: fragmentoNecesidades=gridView;break;
+                case 3: fragmentoEmociones=gridView;break;
+                case 4: fragmentoNino=gridView;
+            }
+
+
             //Listener gridview
             if((int) getArguments().getInt(ARG_SECTION_NUMBER)==4){ //Solapa nino
                 gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -168,7 +170,6 @@ public class EdicionActivity extends SuperSolapas {
                     public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                         ImageView tv = (ImageView) gridView.getChildAt(position);
                         Pictograma pictograma = ((Pictograma) gridView.getAdapter().getItem(position));
-
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
                         DBmanager.removePictogramaChico(pictograma.getId(),  child.getId());
                         pictograma.setSelected(false);
@@ -177,7 +178,7 @@ public class EdicionActivity extends SuperSolapas {
                         list.remove(position);
                         adaptador = new AdaptadorDePictogramas(getActivity(), list,width);
                         gridView.setAdapter(adaptador);
-                        refreshFragment(pictograma.getCarpeta());
+                        refreshFragment(pictograma);
                         return true;
 
                     }
@@ -190,6 +191,7 @@ public class EdicionActivity extends SuperSolapas {
                         ImageView tv = (ImageView) gridView.getChildAt(position);
                         Pictograma p = (Pictograma) gridView.getAdapter().getItem(position);
                         DataBaseManager DBmanager = new DataBaseManager(getActivity());
+
                         if(p.isSelected()){
                             if(tv!=null){tv.setBackgroundColor(Color.parseColor("#9eb7c9"));}
                             DBmanager.removePictogramaChico(p.getId(), child.getId());
@@ -206,8 +208,10 @@ public class EdicionActivity extends SuperSolapas {
                             adaptador = new AdaptadorDePictogramas(getActivity(), list, width);
                             gridView.setAdapter(adaptador);
                         }
-                        refreshFragment("nino");
-
+                        if(fragmentoNino!=null){
+                            List<Pictograma> list =DBmanager.getPictogramasChild(child.getId());
+                            fragmentoNino.setAdapter(new AdaptadorDePictogramas(getActivity(), list, width));
+                        }
                     }
 
                 });
@@ -215,60 +219,39 @@ public class EdicionActivity extends SuperSolapas {
             return rootView;
         }
 
-        private void refreshFragment(String carpeta) {
+        private void refreshFragment(Pictograma pictograma) {
             Map<String,Integer > posCarpetas = new HashMap<String,Integer >();
             posCarpetas.put("pista",0);
             posCarpetas.put("establo",1);
             posCarpetas.put("necesidades",2);
             posCarpetas.put("emociones",3);
-            posCarpetas.put("nino",4);
+            List<Pictograma> list;
 
-            android.support.v4.app.FragmentTransaction ft;
-            switch (posCarpetas.get(carpeta)) {
+            switch (posCarpetas.get(pictograma.getCarpeta())) {
                 case 0:
                     if(fragmentoPista!=null){
-                        ft= getFragmentManager().beginTransaction();
-                        ft.detach(fragmentoPista);
-                        ft.attach(fragmentoPista);
-                        ft.commit();
+                        list = ((AdaptadorDePictogramas) fragmentoPista.getAdapter()).getElements();
+                        fragmentoPista.setAdapter(new AdaptadorDePictogramas(getActivity(), list, width));
                     }
                     break;
                 case 1:
                     if(fragmentoEstablo!=null){
-                        ft= getFragmentManager().beginTransaction();
-                        ft.detach(fragmentoEstablo);
-                        ft.attach(fragmentoEstablo);
-                        ft.commit();
+                        list = ((AdaptadorDePictogramas) fragmentoEstablo.getAdapter()).getElements();
+                        fragmentoEstablo.setAdapter(new AdaptadorDePictogramas(getActivity(), list, width));
                     }
                     break;
                 case 2:
                     if(fragmentoNecesidades!=null){
-                        ft= getFragmentManager().beginTransaction();
-                        ft.detach(fragmentoNecesidades);
-                        ft.attach(fragmentoNecesidades);
-                        ft.commit();
+                        list = ((AdaptadorDePictogramas) fragmentoNecesidades.getAdapter()).getElements();
+                        fragmentoEstablo.setAdapter(new AdaptadorDePictogramas(getActivity(), list, width));
                     }
 
                     break;
                 case 3:
                     if(fragmentoEmociones!=null){
-                        ft= getFragmentManager().beginTransaction();
-                        ft.detach(fragmentoEmociones);
-                        ft.attach(fragmentoEmociones);
-                        ft.commit();
+                        list = ((AdaptadorDePictogramas) fragmentoEmociones.getAdapter()).getElements();
+                        fragmentoEstablo.setAdapter(new AdaptadorDePictogramas(getActivity(), list, width));
                     }
-                    break;
-                case 4:
-                    if(fragmentoNino!=null){
-                        ft= getFragmentManager().beginTransaction();
-                        ft.detach(fragmentoNino);
-                        ft.attach(fragmentoNino);
-                        ft.commit();
-                    }
-
-
-
-
             }
 
 
