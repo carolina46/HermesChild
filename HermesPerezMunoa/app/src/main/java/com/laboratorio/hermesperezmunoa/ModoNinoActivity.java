@@ -70,16 +70,19 @@ public class ModoNinoActivity extends SuperSolapas {
         if (id == R.id.modo_edicion) {
            Intent intent = new Intent(ModoNinoActivity.this, EdicionActivity.class);
            intent.putExtra("chico", child);
+           this.finish();
            startActivity(intent);
         }
         if(id == R.id.ajustes) {
             Intent intent = new Intent(ModoNinoActivity.this, AjustesActivity.class);
             intent.putExtra("activityOrigen", "modoNino");
             intent.putExtra("chico", child);
+            this.finish();
             startActivity(intent);
         }
         if (item.getItemId() == android.R.id.home){
             Intent intent = new Intent(ModoNinoActivity.this, HermesActivity.class);
+            this.finish();
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

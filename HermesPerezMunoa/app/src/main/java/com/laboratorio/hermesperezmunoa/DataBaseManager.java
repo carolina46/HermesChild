@@ -240,7 +240,7 @@ public class DataBaseManager {
         db = helper.getWritableDatabase();
         Cursor dbQuery = db.rawQuery("select * from chicoSeleccionado", null);
         if (dbQuery.moveToFirst()) {
-            Cursor chicos = db.rawQuery("select * from chico where id_chico="+ dbQuery.getInt(0), null);
+            Cursor chicos = db.rawQuery("select * from chico where id_chico="+ dbQuery.getInt(1), null);
             if(chicos.moveToFirst()){
                 boolean[] categorias={chicos.getInt(5)==1,chicos.getInt(6)==1,chicos.getInt(7)==1,chicos.getInt(8)==1};
                 c=new Child(chicos.getInt(0), chicos.getString(1), chicos.getString(2), chicos.getInt(3) == 0 /*sexo, 0=F*/, chicos.getInt(4),categorias);
