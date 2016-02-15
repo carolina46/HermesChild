@@ -305,7 +305,7 @@ public class DataBaseManager {
                     db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (24, 'caballo_m', 'establo', 'Caballo')");
                     db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (25, 'caballo_n', 'establo', 'Caballo')");
 
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (26, 'bano', 'necesidades', 'Baño')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (26, 'bano', 'necesidades', 'Bano')");
                     db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (27, 'sed', 'necesidades', 'Sed')");
                     db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (28, 'seed', 'necesidades', 'Sed')");
 
