@@ -1,0 +1,74 @@
+Para que funcione el entercambio de notificaciones entre el
+comunicador y el monitor es necesario que ambos esten conectados 
+a la misma red. 
+
+
+
+Comunicador
+------------------------------------------------------------------
+
+Requerimientos:
+	Es necesario disponer de un dispositivo con sistema 
+	operativo Android, con al menos la version 4.3.
+	
+Instalación:
+	El Comunicador es un archivo con extensión .apk, con el nombre
+	COMUNICADORPerezMunoa; Ubicado dentro de HERMESPerezMunoa.zip
+
+	Para instalarlo debemos transferirlo al dispositivo. Luego 
+	debemos indicarle a Android que permita la instalación, para
+	ello nos desplazamos hasta 
+	“Ajustes>Seguridad>Orígenes desconocidos” y activamos la opción.	
+	Finalmente abrimos un administrador de archivos, buscamos el apk  
+	en la carpeta en la cual lo guardamos y lo ejecutamos.
+
+Ejecución:
+	Simplemente seleccionar, de entre las aplicaciones del 
+	dispositivo, aquella que se llama HERME y que tiene el
+	logotipo de CEDICA.
+
+Configuración:
+	Para que funcione el envío de las notificaiones debemos 
+	configurar el comunicador. Para ello vamos a "configuración 
+	general" y modificamos la ip y el puerto del monitor.
+	
+	Puerto: 8765
+	
+	Ip: 
+		Desde Windows abrimos la consola e ingresamos el 
+		comando ipconfig. La ip necesarias está identificada 
+		con el nombre: "Dirección IPv4"
+		En Linux abrimos la consola, entrar en modo super usuario e  
+		ingresar el comando ipconfig. La ip necesaria es la que está 
+		identificada con el nombre: "inet addr:"
+
+
+
+
+
+
+Monitor
+------------------------------------------------------------------
+Requerimientos:
+	Es necesario disponer de un conputador que tenga instalado java, 
+	alcanza con jre (java runtime enviroment).
+
+Instalación:
+	No es necesaria.
+	
+Ejecución:
+	El monitor es un archivo con extensión .jar, con el nombre 
+	MONITORPerezMunoa; Ubicado dentro de HERMESPerezMunoa.zip
+
+	El .jar debe estar acompañado del archivo de texto config.txt,
+	y la base de datos hermes.db; también ubicados en 
+	HERMESPerezMunoa.zip
+
+	Para ejecutarlo basta con hacer doble clic sobre el archivo
+	MONITORPerezMunoa.jar
+
+Configuración:
+	No es necesaria.
+
+
+
