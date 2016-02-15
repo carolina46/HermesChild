@@ -195,7 +195,7 @@ public class ModoNinoActivity extends SuperSolapas {
                     String nombreNino = child.getNombre() + " " + child.getApellido();
 
                     DataBaseManager dBmanager = new DataBaseManager(getActivity());
-                    dBmanager.addNotificacion(nombreNino, p.getNombre(),p.getCarpeta());
+                    dBmanager.addNotificacion(nombreNino, p.getNombreParaNoti(),p.getCarpeta());
 
                     EnvioNotificaciones enviador = new EnvioNotificaciones(getActivity());
                     enviador.execute(nombreNino);

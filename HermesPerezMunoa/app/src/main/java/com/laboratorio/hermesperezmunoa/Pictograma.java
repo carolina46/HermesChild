@@ -6,11 +6,13 @@ package com.laboratorio.hermesperezmunoa;
 public class Pictograma {
 
     private String nombre;
+    private String nombreParaNoti;
     private String carpeta;
     private int id;
     private boolean selected=false;
 
-    public Pictograma(int id, String nombre, String carpeta ){
+    public Pictograma(int id, String nombre, String carpeta, String nombreParaNoti ){
+        this.nombreParaNoti=nombreParaNoti;
         this.nombre=nombre;
         this.carpeta=carpeta;
         this.id=id;
@@ -47,6 +49,11 @@ public class Pictograma {
     public void setSelected(boolean s) {
         this.selected = s;
     }
+
+
+    public String getNombreParaNoti() {return nombreParaNoti;}
+
+    public void setNombreParaNoti(String nombreParaNoti) {this.nombreParaNoti = nombreParaNoti;}
 
 
 }

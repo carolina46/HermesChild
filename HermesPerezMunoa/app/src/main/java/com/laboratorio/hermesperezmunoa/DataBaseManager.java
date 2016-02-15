@@ -122,13 +122,13 @@ public class DataBaseManager {
 
     public  List<Pictograma>  getPictogramasChild(int i) {
         db = helper.getWritableDatabase();
-        Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta " +
+        Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta, nombreParaNoti " +
                                     "from pictogramaChico inner join pictograma on (pictogramaChico.id_pictograma = pictograma.id_pictograma) " +
                                     "where id_chico="+Integer.toString(i)+ " order by carpeta", null);
         List<Pictograma> pictogramasChico = new ArrayList<Pictograma>();
         if (pictogramas.moveToFirst()) {
             do {
-                pictogramasChico.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2)));
+                pictogramasChico.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2), pictogramas.getString(3)));
             }while (pictogramas.moveToNext());
         }
 
@@ -144,7 +144,7 @@ public class DataBaseManager {
         List<Pictograma> pictogramasCategoria = new ArrayList<Pictograma>();
         if (pictogramas.moveToFirst()) {
             do {
-                pictogramasCategoria.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2)));
+                pictogramasCategoria.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2),pictogramas.getString(3) ));
             }while (pictogramas.moveToNext());
         }
         db.close();
@@ -171,13 +171,13 @@ public class DataBaseManager {
 
     public List<Pictograma> getPictogramasCategoriaChico(String categoria, int id_nino) {
         db = helper.getWritableDatabase();
-        Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta " +
+        Cursor pictogramas = db.rawQuery("select pictograma.id_pictograma, nombre, carpeta, nombreParaNoti " +
                 "from pictogramaChico inner join pictograma on (pictogramaChico.id_pictograma = pictograma.id_pictograma) " +
                 "where id_chico="+Integer.toString(id_nino)+" and carpeta='"+categoria+"'", null);
         List<Pictograma> pictogramasChico = new ArrayList<Pictograma>();
         if (pictogramas.moveToFirst()) {
             do {
-                pictogramasChico.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2)));
+                pictogramasChico.add(new Pictograma(pictogramas.getInt(0), pictogramas.getString(1),pictogramas.getString(2),pictogramas.getString(3)));
             }while (pictogramas.moveToNext());
         }
 
@@ -265,7 +265,7 @@ public class DataBaseManager {
                 @Override
                 public void onCreate(SQLiteDatabase db) {
                     db.execSQL("create table chico (id_chico Integer primary key autoincrement,nombre text, apellido text, sexo int, tamPictograma int, pista int, establo int, necesidades int, emociones int)");
-                    db.execSQL("create table pictograma (id_pictograma Integer primary key, nombre text, carpeta text)");
+                    db.execSQL("create table pictograma (id_pictograma Integer primary key, nombre text, carpeta text, nombreParaNoti text)");
                     db.execSQL("create table pictogramaChico (id_pictogramaChico Integer primary key autoincrement, id_chico Integer, id_pictograma Integer)");
                     db.execSQL("create table configuracion ( id integer primary key, ip text, puerto text)");
                     db.execSQL("create table notificacion (id_notificacion Integer primary key autoincrement, nombreChico text, contenidoPictograma text, categoriaPictograma text)");
@@ -275,54 +275,54 @@ public class DataBaseManager {
                     db.execSQL("insert into chicoSeleccionado (id_chicoSeleccionado, id) values (1, 0)");
 
                     //CARGA DEL UNICO REGISTRO DE LA TABLA CONFIGURACION
-                    db.execSQL("insert into configuracion (id, ip, puerto) values (1, '192.56.100.69', '7065')");
+                    db.execSQL("insert into configuracion (id, ip, puerto) values (1, '192.168.100.69', '8765')");
 
                     //CARGA INICIAL DE TODOS LOS PICTOGRAMAS
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (1, 'casco', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (2, 'chapas', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (3, 'letras', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (4, 'cubos', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (5, 'maracas', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (6, 'palos', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (7, 'pato', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (8, 'pelota', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (9, 'riendas', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (10, 'burbujas', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (11, 'broches', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (12, 'aro', 'pista')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (13, 'tarima', 'pista')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (1, 'casco', 'pista', 'Casco')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (2, 'chapas', 'pista', 'Chapas')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (3, 'letras', 'pista', 'Letras')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (4, 'cubos', 'pista', 'Cubos')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (5, 'maracas', 'pista', 'Maracas')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (6, 'palos', 'pista', 'Palos')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (7, 'pato', 'pista', 'Pato')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (8, 'pelota', 'pista', 'Pelota')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (9, 'riendas', 'pista', 'Riendas')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (10, 'burbujas', 'pista', 'Burbujas')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (11, 'broches', 'pista', 'Broches')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (12, 'aro', 'pista', 'Aro')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (13, 'tarima', 'pista', 'Tarima')");
 
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (14, 'cepillo', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (15, 'limpieza', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (16, 'escarba', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (17, 'montura', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (18, 'matra', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (19, 'raqueta_dura', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (20, 'raqueta_blanda', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (21, 'pasto', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (22, 'zanahoria', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (23, 'caballo_b', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (24, 'caballo_m', 'establo')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (25, 'caballo_n', 'establo')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (14, 'cepillo', 'establo', 'Cepillo')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (15, 'limpieza', 'establo', 'Limpieza')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (16, 'escarba', 'establo', 'Escarba vasos')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (17, 'montura', 'establo', 'Montura')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (18, 'matra', 'establo', 'Matra')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (19, 'raqueta_dura', 'establo', 'Raqueta Dura')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (20, 'raqueta_blanda', 'establo', 'Raqueta Blanda')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (21, 'pasto', 'establo', 'Pasto')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (22, 'zanahoria', 'establo', 'Zanahoria')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (23, 'caballo_b', 'establo', 'Caballo')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (24, 'caballo_m', 'establo', 'Caballo')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (25, 'caballo_n', 'establo', 'Caballo')");
 
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (26, 'bano', 'necesidades')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (27, 'sed', 'necesidades')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (28, 'seed', 'necesidades')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (26, 'bano', 'necesidades', 'Baño')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (27, 'sed', 'necesidades', 'Sed')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (28, 'seed', 'necesidades', 'Sed')");
 
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (29, 'dolorida', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (30, 'dolorido', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (31, 'cansada', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (32, 'cansado', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (33, 'triste', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (34, 'tristee', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (35, 'sorprendida', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (36, 'sorprendido', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (37, 'asustado', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (38, 'asustada', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (39, 'contenta', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (40, 'contento', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (41, 'enojada', 'emociones')");
-                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta) values (42, 'enojado', 'emociones')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (29, 'dolorida', 'emociones', 'Dolorida')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (30, 'dolorido', 'emociones', 'Dolorido')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (31, 'cansada', 'emociones', 'Cansada')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (32, 'cansado', 'emociones', 'Cansado')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (33, 'triste', 'emociones', 'Triste')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (34, 'tristee', 'emociones', 'Triste')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (35, 'sorprendida', 'emociones', 'Sorprendida')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (36, 'sorprendido', 'emociones', 'Sorprendido')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (37, 'asustado', 'emociones', 'Asustado')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (38, 'asustada', 'emociones', 'Asustada')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (39, 'contenta', 'emociones', 'Contenta')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (40, 'contento', 'emociones', 'Contento')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (41, 'enojada', 'emociones', 'Enojada')");
+                    db.execSQL("insert into pictograma (id_pictograma, nombre, carpeta, nombreParaNoti) values (42, 'enojado', 'emociones', 'Enojado')");
                 }
 
                 @Override
