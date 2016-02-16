@@ -38,7 +38,7 @@ Configuración:
 		Desde Windows abrimos la consola e ingresamos el 
 		comando ipconfig. La ip necesarias está identificada 
 		con el nombre: "Dirección IPv4"
-		En Linux abrimos la consola, entrar en modo super usuario e  
+		Desde Linux abrimos la consola, entrar en modo super usuario e  
 		ingresar el comando ipconfig. La ip necesaria es la que está 
 		identificada con el nombre: "inet addr:"
 
